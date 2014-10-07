@@ -26,6 +26,20 @@ class CustomerRepositoryTest < Minitest::Test
       last_name: 'Toy',
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
+      },
+      {
+      id: '4',
+      first_name: 'Mariah',
+      last_name: 'Osinski',
+      created_at: '2012-03-27 14:54:10 UTC',
+      updated_at: '2012-03-27 14:54:10 UTC'
+      },
+      {
+      id: '5',
+      first_name: 'Cecelia',
+      last_name: 'Toy',
+      created_at: '2012-03-27 14:54:10 UTC',
+      updated_at: '2012-03-27 14:54:10 UTC'
       }
     ].map {|row| Customer.new(row)}
 
@@ -33,7 +47,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_find_all
-    assert_equal 3, @customer_repo.all.size
+    assert_equal 5, @customer_repo.all.size
   end
 
   def test_find_by_id
@@ -41,13 +55,27 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 2, customer.id
   end
 
+  def test_find_by_first_name
+    customer = @customer_repo.find_by_first_name('Mariah')
+    assert_equal 'Mariah', customer.first_name
+  end
+
+  def test_find_by_last_name
+    customer = @customer_repo.find_by_last_name('Toy')
+    assert_equal 'Toy', customer.last_name
+  end
+
+  def test_find_all_by_first_name
+    assert_equal 2, @customer_repo.find_all_by_first_name('Mariah').size
+  end
+
+  def test_find_all_by_last_name
+    assert_equal 2, @customer_repo.find_all_by_last_name('Toy').size
+  end
+
+  def test_find_random
+    assert_class = Customer, @customer_repo.random
+  end
 end
 
-#all returns all instances
-
-#random returns a random instance
-
-#find_by_X(match), where X is some attribute, returns a single instance whose X attribute
-
-#find_all_by_X(match) works just like find_by_X
 #If there is no match, it returns an empty Array.
