@@ -14,7 +14,7 @@ class CustomerTest < MiniTest::Test
 
     customer = Customer.new(data)
 
-    assert_equal '1', customer.id
+    assert_equal 1, customer.id
     assert_equal 'Joey', customer.first_name
     assert_equal 'Ondricka', customer.last_name
     assert_equal '2012-03-27 14:54:09 UTC', customer.created_at
