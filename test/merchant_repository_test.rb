@@ -8,36 +8,31 @@ class MerchantRepositoryTest < Minitest::Test
     merchants = [
       {
       id: '1',
-      first_name: 'Joey',
-      last_name: 'Ondricka',
+      name: 'Schroeder-Jerde',
       created_at: '2012-03-27 14:54:09 UTC',
       updated_at: '2012-03-27 14:54:09 UTC'
       },
       {
       id: '2',
-      first_name: 'Cecelia',
-      last_name: 'Osinski',
+      name: 'Klein, Rempel and Jones',
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
       },
       {
       id: '3',
-      first_name: 'Mariah',
-      last_name: 'Toy',
+      name: 'Willms and Sons',
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
       },
       {
       id: '4',
-      first_name: 'Mariah',
-      last_name: 'Osinski',
+      name: 'Cummings-Thiel',
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
       },
       {
       id: '5',
-      first_name: 'Cecelia',
-      last_name: 'Toy',
+      name: 'Klein, Rempel and Jones',
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
       }
@@ -47,40 +42,24 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_all
-    skip
     assert_equal 5, @merchant_repo.all.size
   end
 
   def test_find_by_id
-    skip
     merchant = @merchant_repo.find_by_id(2)
     assert_equal 2, merchant.id
   end
 
-  def test_find_by_first_name
-    skip
-    merchant = @merchant_repo.find_by_first_name('Mariah')
-    assert_equal 'Mariah', merchant.first_name
+  def test_find_by_name
+    merchant = @merchant_repo.find_by_name('Schroeder-Jerde')
+    assert_equal 'Schroeder-Jerde', merchant.name
   end
 
-  def test_find_by_last_name
-    skip
-    merchant = @merchant_repo.find_by_last_name('Toy')
-    assert_equal 'Toy', merchant.last_name
-  end
-
-  def test_find_all_by_first_name
-    skip
-    assert_equal 2, @merchant_repo.find_all_by_first_name('Mariah').size
-  end
-
-  def test_find_all_by_last_name
-    skip
-    assert_equal 2, @merchant_repo.find_all_by_last_name('Toy').size
+  def test_find_all_by_name
+    assert_equal 0, @merchant_repo.find_all_by_name('Mariah').size
   end
 
   def test_find_random
-    skip
     assert_class = Merchant, @merchant_repo.random
   end
 end

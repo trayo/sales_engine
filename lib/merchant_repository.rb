@@ -16,23 +16,16 @@ class MerchantRepository
     merchants.find {|merchant| merchant.id == id}
   end
 
-  def find_by_first_name(first_name)
-    merchants.find {|merchant| merchant.first_name == first_name}
+  def find_by_name(name)
+    merchants.find {|merchant| merchant.name == name}
   end
 
-  def find_by_last_name(last_name)
-    merchants.find {|merchant| merchant.last_name == last_name}
-  end
-
-  def find_all_by_first_name(first_name)
-    merchants.find_all {|merchant| merchant.first_name == first_name}
-  end
-
-  def find_all_by_last_name(last_name)
-    merchants.find_all {|merchant| merchant.last_name == last_name}
+  def find_all_by_name(name)
+    merchants.find_all {|merchant| merchant.name == name}
   end
 
   def random
     merchants.sample
   end
 end
+
