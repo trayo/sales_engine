@@ -35,6 +35,7 @@ class CustomerTest < MiniTest::Test
       updated_at: '2012-03-27 14:54:09 UTC'
       }
     ].map {|row| Invoice.new(row)}
+    
     invoice_repository = InvoiceRepository.new(invoice_data)
     @customer.set_invoice_repository(invoice_repository)
 
