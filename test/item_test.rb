@@ -19,7 +19,7 @@ class ItemTest < MiniTest::Test
   end
 
   def test_item_attributes
-    assert_equal '1', @item.id
+    assert_equal 1, @item.id
     assert_equal 'Item Qui Esse', @item.name
     assert_equal 'Nihil autem sit odio inventore deleniti.', @item.description
     assert_equal '75107', @item.unit_price
