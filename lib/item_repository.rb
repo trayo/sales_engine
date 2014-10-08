@@ -16,28 +16,28 @@ class ItemRepository
     find_by_attribute(:id, id)
   end
 
-  def find_by_customer_id(customer_id)
-    find_by_attribute(:customer_id, customer_id)
+  def find_by_name(name)
+    find_by_attribute(:name, name)
   end
 
   def find_by_merchant_id(merchant_id)
     find_by_attribute(:merchant_id, merchant_id)
   end
 
-  def find_by_status(status)
-    find_by_attribute(:status, status)
+  def find_by_description(description)
+    find_by_attribute(:description, description)
   end
 
-  def find_all_by_customer_id(customer_id)
-    find_all_by_attribute(:customer_id, customer_id)
+  def find_by_unit_price(unit_price)
+    find_by_attribute(:unit_price, unit_price)
   end
 
   def find_all_by_merchant_id(merchant_id)
     find_all_by_attribute(:merchant_id, merchant_id)
   end
 
-  def find_all_by_status(status)
-    find_all_by_attribute(:status, status)
+  def find_all_by_description(description)
+    find_all_by_attribute(:description, description)
   end
 
   def random
