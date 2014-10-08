@@ -44,8 +44,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
       },
       {
         id: "5",
-        item_id: "4",
-        invoice_id: "1",
+        item_id: "539",
+        invoice_id: "15",
         quantity: "16",
         unit_price: "3024",
         created_at: '2012-03-27 14:54:13 UTC',
@@ -62,6 +62,52 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_random
     assert_class = InvoiceItem, @invoice_item_repo.random
+  end
+
+  def test_find_by_id
+    invoice_item = @invoice_item_repo.find_by_id(3)
+    assert_equal 3, invoice_item.id
+  end
+
+  def test_find_by_item_id
+    invoice_item = @invoice_item_repo.find_by_item_id("539")
+    assert_equal "539", invoice_item.item_id
+  end
+
+  def test_find_all_by_item_id
+    assert_equal 2, @invoice_item_repo.find_all_by_item_id("539").size
+  end
+
+  def test_find_by_invoice_id
+    invoice_item = @invoice_item_repo.find_by_invoice_id("15")
+    assert_equal "15", invoice_item.invoice_id
+  end
+
+  def test_find_all_by_invoice_id
+    assert_equal 2, @invoice_item_repo.find_all_by_invoice_id("1").size
+  end
+
+  def test_find_by_quantity
+    invoice_item = @invoice_item_repo.find_by_quantity(10)
+    assert_equal 10, invoice_item.quantity
+  end
+
+  def test_find_all_by_quantity
+    assert_equal 2, @invoice_item_repo.find_all_by_quantity(9).size
+  end
+
+  def test_find_by_unit_price
+    invoice_item = @invoice_item_repo.find_by_unit_price("13635")
+    assert_equal "13635", invoice_item.unit_price
+  end
+
+  def test_find_all_by_unit_price
+    assert_equal 2, @invoice_item_repo.find_all_by_unit_price("72018").size
+  end
+
+  def test_find_all_by_unit_price_returns_empty_array
+    empty_items = @invoice_item_repo.find_all_by_unit_price("elephant")
+    assert_equal [], empty_items
   end
 
 end
