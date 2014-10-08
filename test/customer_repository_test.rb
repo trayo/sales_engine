@@ -46,8 +46,12 @@ class CustomerRepositoryTest < Minitest::Test
     @customer_repo = CustomerRepository.new(customers)
   end
 
-  def test_find_all
+  def test_all
     assert_equal 5, @customer_repo.all.size
+  end
+
+  def test_random
+    assert_class = Customer, @customer_repo.random
   end
 
   def test_find_by_id
@@ -69,13 +73,18 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 2, @customer_repo.find_all_by_first_name('Mariah').size
   end
 
+  def test_find_all_by_first_name_returns_empty_array
+    empty_customers = @customer_repo.find_all_by_first_name('Travis')
+    assert_equal [], empty_customers
+  end
+
   def test_find_all_by_last_name
     assert_equal 2, @customer_repo.find_all_by_last_name('Toy').size
   end
 
-  def test_find_random
-    assert_class = Customer, @customer_repo.random
+  def test_find_all_by_last_name_returns_empty_array
+    empty_customers = @customer_repo.find_all_by_last_name('Bayendor')
+    assert_equal [], empty_customers
   end
-end
 
-#If there is no match, it returns an empty Array.
+end
