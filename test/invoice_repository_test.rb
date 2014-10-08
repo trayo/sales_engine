@@ -69,16 +69,6 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 2, invoice.customer_id
   end
 
-  def test_find_by_merchant_id
-    invoice = @invoice_repo.find_by_merchant_id(86)
-    assert_equal 86, invoice.merchant_id
-  end
-
-  def test_find_by_status
-    invoice = @invoice_repo.find_by_status("canceled")
-    assert_equal "canceled", invoice.status
-  end
-
   def test_find_all_by_customer_id
     invoices = @invoice_repo.find_all_by_customer_id(1)
     assert_equal 2, invoices.size
@@ -89,6 +79,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal [], empty_invoices
   end
 
+  def test_find_by_merchant_id
+    invoice = @invoice_repo.find_by_merchant_id(86)
+    assert_equal 86, invoice.merchant_id
+  end
+
   def test_find_all_by_merchant_id
     invoices = @invoice_repo.find_all_by_merchant_id(44)
     assert_equal 2, invoices.size
@@ -97,6 +92,11 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id_returns_empty_array
     empty_invoices = @invoice_repo.find_all_by_merchant_id(-64)
     assert_equal [], empty_invoices
+  end
+
+  def test_find_by_status
+    invoice = @invoice_repo.find_by_status("canceled")
+    assert_equal "canceled", invoice.status
   end
 
   def test_find_all_by_status
