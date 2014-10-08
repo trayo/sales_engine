@@ -1,7 +1,17 @@
 [![Stories in Ready](https://badge.waffle.io/trayo/sales_engine.png?label=ready&title=Ready)](https://waffle.io/trayo/sales_engine)
 # Sales Engine
 
-(insert project completion goals for first check-in here)
+Project completion goals for first check-in:
+
+* Have all data classes completed with tests
+
+* Have all repositories completed with tests
+
+* Have CSV file loader implemented
+
+* Mock sales_engine
+
+* Mock at least one relationship and one piece of business intelligence
 
 (insert project completion goals for second check-in here)
 
