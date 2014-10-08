@@ -1,0 +1,12 @@
+bin/bundler
+bin/cane
+bin/coderay
+bin/guard
+bin/listen
+bin/pry
+bin/r2r_show
+bin/rake
+bin/reek
+bin/ruby_parse
+bin/ruby_parse_extract_error
+bin/thor
