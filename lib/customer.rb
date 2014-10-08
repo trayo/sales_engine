@@ -12,4 +12,12 @@ class Customer
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
   end
+
+  def set_invoice_repository(invoice_repository)
+    @invoice_repository = invoice_repository
+  end
+
+  def invoices
+    @invoice_repository.find_all_by_customer_id(id)
+  end
 end
