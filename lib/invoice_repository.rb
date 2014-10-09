@@ -44,6 +44,10 @@ class InvoiceRepository
     find_all_by_attribute(:status, status)
   end
 
+  def inspect
+    "#<#{self.class} #{invoices.size} rows>"
+  end
+
   private
 
   def find_by_attribute(attribute, value)

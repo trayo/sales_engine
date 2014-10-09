@@ -52,6 +52,10 @@ class ItemRepository
     find_all_by_attribute(:merchant_id, merchant_id)
   end
 
+  def inspect
+    "#<#{self.class} #{items.size} rows>"
+  end
+
   private
 
   def find_by_attribute(attribute, value)

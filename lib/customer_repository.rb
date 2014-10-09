@@ -35,4 +35,8 @@ class CustomerRepository
   def find_all_by_last_name(last_name)
     customers.find_all {|customer| customer.last_name == last_name.downcase}
   end
+
+  def inspect
+    "#<#{self.class} #{customers.size} rows>"
+  end
 end

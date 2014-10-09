@@ -62,4 +62,7 @@ class TransactionRepository
     transactions.find_all {|transaction| transaction.public_send(attribute) == value}
   end
 
+  def inspect
+    "#<#{self.class} #{transactions.size} rows>"
+  end
 end
