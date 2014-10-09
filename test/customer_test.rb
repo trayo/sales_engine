@@ -6,9 +6,9 @@ require_relative '../lib/invoice_repository'
 class CustomerTest < MiniTest::Test
   def setup
     data = {
-      id: '1',
+      id:         '1',
       first_name: 'Joey',
-      last_name: 'Ondricka',
+      last_name:  'Ondricka',
       created_at: '2012-03-27 14:54:09 UTC',
       updated_at: '2012-03-27 14:54:09 UTC'
     }
@@ -18,8 +18,8 @@ class CustomerTest < MiniTest::Test
 
   def test_customer_attributes
     assert_equal 1, @customer.id
-    assert_equal 'Joey', @customer.first_name
-    assert_equal 'Ondricka', @customer.last_name
+    assert_equal 'Joey'.downcase, @customer.first_name
+    assert_equal 'Ondricka'.downcase, @customer.last_name
     assert_equal '2012-03-27 14:54:09 UTC', @customer.created_at
     assert_equal '2012-03-27 14:54:09 UTC', @customer.updated_at
   end
@@ -27,12 +27,12 @@ class CustomerTest < MiniTest::Test
   def test_invoices
     invoice_data = [
       {
-      id: '1',
+      id:          '1',
       customer_id: '1',
       merchant_id: '26',
-      status: 'shipped',
-      created_at: '2012-03-27 14:54:09 UTC',
-      updated_at: '2012-03-27 14:54:09 UTC'
+      status:      'shipped',
+      created_at:  '2012-03-27 14:54:09 UTC',
+      updated_at:  '2012-03-27 14:54:09 UTC'
       }
     ].map {|row| Invoice.new(row)}
 
