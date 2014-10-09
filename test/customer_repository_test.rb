@@ -7,37 +7,37 @@ class CustomerRepositoryTest < Minitest::Test
   def setup
     customers = [
       {
-      id: '1',
+      id:         '1',
       first_name: 'Joey',
-      last_name: 'Ondricka',
+      last_name:  'Ondricka',
       created_at: '2012-03-27 14:54:09 UTC',
       updated_at: '2012-03-27 14:54:09 UTC'
       },
       {
-      id: '2',
+      id:         '2',
       first_name: 'Cecelia',
-      last_name: 'Osinski',
+      last_name:  'Osinski',
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
       },
       {
-      id: '3',
+      id:         '3',
       first_name: 'Mariah',
-      last_name: 'Toy',
+      last_name:  'Toy',
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
       },
       {
-      id: '4',
+      id:         '4',
       first_name: 'Mariah',
-      last_name: 'Osinski',
+      last_name:  'Osinski',
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
       },
       {
-      id: '5',
+      id:         '5',
       first_name: 'Cecelia',
-      last_name: 'Toy',
+      last_name:  'Toy',
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
       }
@@ -61,7 +61,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_by_first_name
     customer = @customer_repo.find_by_first_name('Mariah')
-    assert_equal 'Mariah', customer.first_name
+    assert_equal 'Mariah'.downcase, customer.first_name
   end
 
   def test_find_all_by_first_name
@@ -75,7 +75,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_by_last_name
     customer = @customer_repo.find_by_last_name('Toy')
-    assert_equal 'Toy', customer.last_name
+    assert_equal 'Toy'.downcase, customer.last_name
   end
 
   def test_find_all_by_last_name

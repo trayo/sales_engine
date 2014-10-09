@@ -17,7 +17,7 @@ class MerchantTest < MiniTest::Test
 
   def test_merchant_attributes
     assert_equal 1, @merchant.id
-    assert_equal 'Schroeder-Jerde', @merchant.name
+    assert_equal 'Schroeder-Jerde'.downcase, @merchant.name
     assert_equal '2012-03-27 14:53:59 UTC', @merchant.created_at
     assert_equal '2012-03-27 14:53:59 UTC', @merchant.updated_at
   end

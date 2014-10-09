@@ -7,49 +7,49 @@ class TransactionRepositoryTest < Minitest::Test
   def setup
     transactions = [
       {
-        id: '1',
-        invoice_id: '1',
-        credit_card_number: '4844518708741275',
+        id:                          '1',
+        invoice_id:                  '1',
+        credit_card_number:          '4844518708741275',
         credit_card_expiration_date: '',
-        result: 'success',
-        created_at: '2012-03-27 14:54:09 UTC',
-        updated_at: '2012-03-27 14:54:09 UTC'
+        result:                      'success',
+        created_at:                  '2012-03-27 14:54:09 UTC',
+        updated_at:                  '2012-03-27 14:54:09 UTC'
       },
       {
-        id: '2',
-        invoice_id: '2',
-        credit_card_number: '4580251236515201',
+        id:                          '2',
+        invoice_id:                  '2',
+        credit_card_number:          '4580251236515201',
         credit_card_expiration_date: '',
-        result: 'success',
-        created_at: '2012-03-27 14:54:09 UTC',
-        updated_at: '2012-03-27 14:54:09 UTC'
+        result:                      'success',
+        created_at:                  '2012-03-27 14:54:09 UTC',
+        updated_at:                  '2012-03-27 14:54:09 UTC'
       },
       {
-        id: '3',
-        invoice_id: '3',
-        credit_card_number: '4354495077693036',
+        id:                          '3',
+        invoice_id:                  '3',
+        credit_card_number:          '4354495077693036',
         credit_card_expiration_date: '',
-        result: 'success',
-        created_at: '2012-03-27 14:54:09 UTC',
-        updated_at: '2012-03-27 14:54:09 UTC'
+        result:                      'success',
+        created_at:                  '2012-03-27 14:54:09 UTC',
+        updated_at:                  '2012-03-27 14:54:09 UTC'
       },
       {
-        id: '4',
-        invoice_id: '3',
-        credit_card_number: '4654405418249632',
+        id:                          '4',
+        invoice_id:                  '3',
+        credit_card_number:          '4654405418249632',
         credit_card_expiration_date: '2012-03-27',
-        result: 'failed',
-        created_at: '2012-03-27 14:54:09 UTC',
-        updated_at: '2012-03-27 14:54:09 UTC'
+        result:                      'failed',
+        created_at:                  '2012-03-27 14:54:09 UTC',
+        updated_at:                  '2012-03-27 14:54:09 UTC'
       },
       {
-        id: '5',
-        invoice_id: '4',
-        credit_card_number: '4654405418249632',
+        id:                          '5',
+        invoice_id:                  '4',
+        credit_card_number:          '4654405418249632',
         credit_card_expiration_date: '',
-        result: 'failed',
-        created_at: '2012-03-27 14:54:09 UTC',
-        updated_at: '2012-03-27 14:54:09 UTC'
+        result:                      'failed',
+        created_at:                  '2012-03-27 14:54:09 UTC',
+        updated_at:                  '2012-03-27 14:54:09 UTC'
     }
     ].map {|row| Transaction.new(row)}
 
@@ -65,17 +65,17 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-    transaction = @transaction_repo.find_by_id('4')
-    assert_equal '4', transaction.id
+    transaction = @transaction_repo.find_by_id(4)
+    assert_equal 4, transaction.id
   end
 
   def test_find_by_invoice_id
-    transaction = @transaction_repo.find_by_invoice_id('2')
-    assert_equal '2', transaction.invoice_id
+    transaction = @transaction_repo.find_by_invoice_id(2)
+    assert_equal 2, transaction.invoice_id
   end
 
   def test_find_all_by_invoice_id
-    transaction = @transaction_repo.find_all_by_invoice_id('3')
+    transaction = @transaction_repo.find_all_by_invoice_id(3)
     assert_equal 2, transaction.size
   end
 
