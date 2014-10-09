@@ -15,6 +15,8 @@ require_relative 'transaction_repository.rb'
 
 class SalesEngine
 
-  
+  def startup
+
+  end
 
 end
