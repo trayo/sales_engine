@@ -1,11 +1,13 @@
 require_relative 'customer'
+require_relative 'file_loader'
 
 class CustomerRepository
 
   attr_reader :customers
 
-  def initialize(customers = [])
-    @customers = customers
+  def initialize(engine, path)
+    @engine    = engine
+    @customers = load(path + "/customers.csv")
   end
 
   def all
@@ -38,5 +40,10 @@ class CustomerRepository
 
   def inspect
     "#<#{self.class} #{customers.size} rows>"
+  end
+
+  def load(filepath)
+    contents = FileLoader.load_file(filepath)
+    contents.map { |row| Customer.new(row) }
   end
 end
