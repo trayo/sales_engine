@@ -15,6 +15,10 @@ require_relative 'transaction_repository.rb'
 
 class SalesEngine
 
+  def initialize(path = './data/')
+
+  end
+
   def startup
 
   end
