@@ -21,8 +21,8 @@ class ItemTest < MiniTest::Test
 
   def test_item_attributes
     assert_equal 1, @item.id
-    assert_equal 'Item Qui Esse'.downcase, @item.name
-    assert_equal 'Nihil autem sit odio inventore deleniti.'.downcase, @item.description
+    assert_equal 'Item Qui Esse', @item.name
+    assert_equal 'Nihil autem sit odio inventore deleniti.', @item.description
     assert_equal '75107', @item.unit_price
     assert_equal 1, @item.merchant_id
     assert_equal '2012-03-27 14:53:59 UTC', @item.created_at

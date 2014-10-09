@@ -72,7 +72,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_by_name
     item = @item_repo.find_by_name('Item Itaque Consequatur')
-    assert_equal 'Item Itaque Consequatur'.downcase, item.name
+    assert_equal 'Item Itaque Consequatur', item.name
   end
 
   def test_find_all_by_name
@@ -82,7 +82,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_by_description
     item = @item_repo.find_by_description('Iure cumque laborum hic autem quidem voluptas.')
-    assert_equal 'Iure cumque laborum hic autem quidem voluptas.'.downcase, item.description
+    assert_equal 'Iure cumque laborum hic autem quidem voluptas.', item.description
   end
 
   def test_find_all_by_description
