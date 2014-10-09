@@ -5,8 +5,9 @@ class CustomerRepository
 
   attr_reader :customers
 
-  def initialize(customers = [])
-    @customers = customers
+  def initialize(engine, path)
+    @engine    = engine
+    @customers = load(path + "/customers.csv")
   end
 
   def all
@@ -42,11 +43,7 @@ class CustomerRepository
   end
 
   def load(filepath)
-    customers = []
     contents = FileLoader.load_file(filepath)
-    contents.each do |row|
-      customers << Customer.new(row)
-    end
-    @customers = customers
+    contents.map { |row| Customer.new(row) }
   end
 end
