@@ -35,4 +35,8 @@ class CustomerRepository
   def random
     customers.sample
   end
+
+  def inspect
+    "#<#{self.class} #{customers.size} rows>"
+  end
 end

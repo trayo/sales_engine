@@ -52,6 +52,10 @@ class InvoiceItemRepository
     find_all_by_attribute(:unit_price, unit_price)
   end
 
+  def inspect
+    "#<#{self.class} #{invoice_items.size} rows>"
+  end
+
   private
 
   def find_by_attribute(attribute, value)

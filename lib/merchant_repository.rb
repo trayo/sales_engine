@@ -27,4 +27,8 @@ class MerchantRepository
   def find_all_by_name(name)
     merchants.find_all {|merchant| merchant.name == name}
   end
+
+  def inspect
+    "#<#{self.class} #{merchants.size} rows>"
+  end
 end

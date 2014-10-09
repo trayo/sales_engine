@@ -44,6 +44,10 @@ class InvoiceRepository
     invoices.sample
   end
 
+  def inspect
+    "#<#{self.class} #{invoices.size} rows>"
+  end
+
   private
 
   def find_by_attribute(attribute, value)
