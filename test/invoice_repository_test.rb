@@ -7,44 +7,44 @@ class InvoiceRepositoryTest < Minitest::Test
   def setup
     invoices = [
       {
-      id: '1',
+      id:          '1',
       customer_id: '1',
       merchant_id: '26',
-      status: 'shipped',
-      created_at: '2012-03-27 14:54:09 UTC',
-      updated_at: '2012-03-27 14:54:09 UTC'
+      status:      'shipped',
+      created_at:  '2012-03-27 14:54:09 UTC',
+      updated_at:  '2012-03-27 14:54:09 UTC'
       },
       {
-      id: '2',
+      id:          '2',
       customer_id: '1',
       merchant_id: '75',
-      status: 'shipped',
-      created_at: '2012-03-27 14:54:10 UTC',
-      updated_at: '2012-03-27 14:54:10 UTC'
+      status:      'shipped',
+      created_at:  '2012-03-27 14:54:10 UTC',
+      updated_at:  '2012-03-27 14:54:10 UTC'
       },
       {
-      id: '3',
+      id:          '3',
       customer_id: '2',
       merchant_id: '44',
-      status: 'shipped',
-      created_at: '2012-03-27 14:54:11 UTC',
-      updated_at: '2012-03-27 14:54:11 UTC'
+      status:      'shipped',
+      created_at:  '2012-03-27 14:54:11 UTC',
+      updated_at:  '2012-03-27 14:54:11 UTC'
       },
       {
-      id: '4',
+      id:          '4',
       customer_id: '3',
       merchant_id: '86',
-      status: 'canceled',
-      created_at: '2012-03-27 14:54:12 UTC',
-      updated_at: '2012-03-27 14:54:12 UTC'
+      status:      'canceled',
+      created_at:  '2012-03-27 14:54:12 UTC',
+      updated_at:  '2012-03-27 14:54:12 UTC'
       },
       {
-      id: '5',
+      id:          '5',
       customer_id: '4',
       merchant_id: '44',
-      status: 'shipped',
-      created_at: '2012-03-27 14:54:13 UTC',
-      updated_at: '2012-03-27 14:54:13 UTC'
+      status:      'shipped',
+      created_at:  '2012-03-27 14:54:13 UTC',
+      updated_at:  '2012-03-27 14:54:13 UTC'
       }
     ].map {|row| Invoice.new(row)}
 
