@@ -56,7 +56,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_name
     merchant = @merchant_repo.find_by_name('Schroeder-Jerde')
-    assert_equal 'Schroeder-Jerde'.downcase, merchant.name
+    assert_equal 'Schroeder-Jerde', merchant.name
   end
 
   def test_find_all_by_name
