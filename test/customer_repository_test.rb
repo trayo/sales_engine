@@ -64,11 +64,6 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 'Mariah', customer.first_name
   end
 
-  def test_find_by_last_name
-    customer = @customer_repo.find_by_last_name('Toy')
-    assert_equal 'Toy', customer.last_name
-  end
-
   def test_find_all_by_first_name
     assert_equal 2, @customer_repo.find_all_by_first_name('Mariah').size
   end
@@ -76,6 +71,11 @@ class CustomerRepositoryTest < Minitest::Test
   def test_find_all_by_first_name_returns_empty_array
     empty_customers = @customer_repo.find_all_by_first_name('Travis')
     assert_equal [], empty_customers
+  end
+
+  def test_find_by_last_name
+    customer = @customer_repo.find_by_last_name('Toy')
+    assert_equal 'Toy', customer.last_name
   end
 
   def test_find_all_by_last_name

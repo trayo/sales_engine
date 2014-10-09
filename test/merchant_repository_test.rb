@@ -41,8 +41,12 @@ class MerchantRepositoryTest < Minitest::Test
     @merchant_repo = MerchantRepository.new(merchants)
   end
 
-  def test_find_all
+  def test_all
     assert_equal 5, @merchant_repo.all.size
+  end
+
+  def test_random
+    assert_class = Merchant, @merchant_repo.random
   end
 
   def test_find_by_id
@@ -57,10 +61,6 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_all_by_name
     assert_equal 0, @merchant_repo.find_all_by_name('Mariah').size
-  end
-
-  def test_find_random
-    assert_class = Merchant, @merchant_repo.random
   end
 end
 
