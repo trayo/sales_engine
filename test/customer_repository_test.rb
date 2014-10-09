@@ -87,4 +87,10 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal [], empty_customers
   end
 
+  def test_it_loads_a_file
+    load_test = CustomerRepository.new
+    load_test.load('./data/test_customers.csv')
+    assert_equal 25, load_test.customers.size
+  end
+
 end

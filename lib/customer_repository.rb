@@ -1,4 +1,5 @@
 require_relative 'customer'
+require_relative 'file_loader'
 
 class CustomerRepository
 
@@ -38,5 +39,14 @@ class CustomerRepository
 
   def inspect
     "#<#{self.class} #{customers.size} rows>"
+  end
+
+  def load(filepath)
+    customers = []
+    contents = FileLoader.load_file(filepath)
+    contents.each do |row|
+      customers << Customer.new(row)
+    end
+    @customers = customers
   end
 end
