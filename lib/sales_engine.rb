@@ -14,13 +14,14 @@ require_relative 'transaction.rb'
 require_relative 'transaction_repository.rb'
 
 class SalesEngine
+  attr_reader :path,
+              :customer_repository
 
   def initialize(path = './data/')
-
+    @path = path
   end
 
   def startup
-
+    @customer_repository = CustomerRepository.new(self, path)
   end
-
 end
