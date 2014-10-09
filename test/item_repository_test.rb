@@ -3,9 +3,10 @@ require_relative 'test_helper'
 require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
+  attr_reader :items, :item_repo
 
   def setup
-    items = [
+    @items = [
       {
         id: '1',
         name: 'Item Qui Esse',
@@ -51,7 +52,7 @@ class ItemRepositoryTest < Minitest::Test
         created_at: '2012-03-27 14:53:59 UTC',
         updated_at: '2012-03-27 14:53:59 UTC'
       }
-    ].map {|row| Item.new(row)}
+    ].map {|row| Item.new(row, item_repo)}
 
     @item_repo = ItemRepository.new(items)
   end
