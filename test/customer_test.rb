@@ -4,6 +4,8 @@ require_relative '../lib/customer'
 require_relative '../lib/invoice_repository'
 
 class CustomerTest < MiniTest::Test
+  attr_reader :customer, :repository
+
   def setup
     data = {
       id:         '1',
@@ -13,7 +15,8 @@ class CustomerTest < MiniTest::Test
       updated_at: '2012-03-27 14:54:09 UTC'
     }
 
-    @customer = Customer.new(data)
+    @repository = Minitest::Mock.new
+    @customer = Customer.new(data, repository)
   end
 
   def test_customer_attributes
