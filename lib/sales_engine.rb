@@ -15,7 +15,9 @@ require_relative 'transaction_repository.rb'
 
 class SalesEngine
   attr_reader :path,
-              :customer_repository
+              :customer_repository,
+              :transaction_repository,
+              :invoice_item_repository
 
   def initialize(path = './data/')
     @path = path
@@ -23,5 +25,7 @@ class SalesEngine
 
   def startup
     @customer_repository = CustomerRepository.new(self, path)
+    @transaction_repository = TransactionRepository.new(self, path)
+    @invoice_item_repository = InvoiceItemRepository.new(self, path)
   end
 end
