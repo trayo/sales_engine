@@ -61,7 +61,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_by_first_name
     customer = @customer_repo.find_by_first_name('Mariah')
-    assert_equal 'Mariah'.downcase, customer.first_name
+    assert_equal 'Mariah', customer.first_name
   end
 
   def test_find_all_by_first_name
@@ -75,7 +75,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_by_last_name
     customer = @customer_repo.find_by_last_name('Toy')
-    assert_equal 'Toy'.downcase, customer.last_name
+    assert_equal 'Toy', customer.last_name
   end
 
   def test_find_all_by_last_name
@@ -92,7 +92,7 @@ class CustomerRepositoryTest < Minitest::Test
     load_test.load('./data/test_customers.csv')
     assert_equal 25, load_test.customers.size
     customer = load_test.find_by_first_name('Mariah')
-    assert_equal 'Mariah'.downcase, customer.first_name
+    assert_equal 'Mariah', customer.first_name
     assert_equal 3, customer.id
   end
 
