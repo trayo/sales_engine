@@ -17,53 +17,44 @@ class InvoiceItemRepository
   end
 
   def find_by_id(id)
-    find_by_attribute(:id, id)
+    invoice_items.find {|invoice_item| invoice_item.id == id}
   end
 
   def find_by_item_id(item_id)
-    find_by_attribute(:item_id, item_id)
+    invoice_items.find {|invoice_item| invoice_item.item_id == item_id}
   end
 
   def find_all_by_item_id(item_id)
-    find_all_by_attribute(:item_id, item_id)
+    invoice_items.find_all {|invoice_item| invoice_item.item_id == item_id}
   end
 
   def find_by_invoice_id(invoice_id)
-    find_by_attribute(:invoice_id, invoice_id)
+    invoice_items.find {|invoice_item| invoice_item.invoice_id == invoice_id}
   end
 
   def find_all_by_invoice_id(invoice_id)
-    find_all_by_attribute(:invoice_id, invoice_id)
+    invoice_items.find_all {|invoice_item| invoice_item.invoice_id == invoice_id}
   end
 
   def find_by_quantity(quantity)
-    find_by_attribute(:quantity, quantity)
+    invoice_items.find {|invoice_item| invoice_item.quantity == quantity}
   end
 
   def find_all_by_quantity(quantity)
-    find_all_by_attribute(:quantity, quantity)
+    invoice_items.find_all {|invoice_item| invoice_item.quantity == quantity}
   end
 
   def find_by_unit_price(unit_price)
-    find_by_attribute(:unit_price, unit_price)
+    invoice_items.find {|invoice_item| invoice_item.unit_price == unit_price}
   end
 
   def find_all_by_unit_price(unit_price)
-    find_all_by_attribute(:unit_price, unit_price)
-  end
-
-  def inspect
-    "#<#{self.class} #{invoice_items.size} rows>"
+    invoice_items.find_all {|invoice_item| invoice_item.unit_price == unit_price}
   end
 
   private
 
-  def find_by_attribute(attribute, value)
-    invoice_items.find {|invoice_item| invoice_item.public_send(attribute) == value}
+  def inspect
+    "#<#{self.class} #{invoice_items.size} rows>"
   end
-
-  def find_all_by_attribute(attribute, value)
-    invoice_items.find_all {|invoice_item| invoice_item.public_send(attribute) == value}
-  end
-
 end
