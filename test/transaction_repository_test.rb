@@ -3,9 +3,10 @@ require_relative 'test_helper'
 require_relative '../lib/transaction_repository'
 
 class TransactionRepositoryTest < Minitest::Test
+  attr_reader :transactions, :transaction_repo, :sales_engine
 
   def setup
-    transactions = [
+    @transactions = [
       {
         id:                          '1',
         invoice_id:                  '1',
@@ -51,9 +52,10 @@ class TransactionRepositoryTest < Minitest::Test
         created_at:                  '2012-03-27 14:54:09 UTC',
         updated_at:                  '2012-03-27 14:54:09 UTC'
     }
-    ].map {|row| Transaction.new(row)}
+    ].map {|row| Transaction.new(row, transaction_repo)}
 
-    @transaction_repo = TransactionRepository.new(transactions)
+    @sales_engine = Minitest::Mock.new
+    @transaction_repo = TransactionRepository.new(sales_engine, transactions)
   end
 
   def test_all
@@ -114,4 +116,8 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 2, transactions_results.size
   end
 
+  def test_it_loads_a_file
+    load_test = TransactionRepository.new(sales_engine, './data/test_transactions.csv')
+    assert_equal 25, load_test.transactions.size
+  end
 end

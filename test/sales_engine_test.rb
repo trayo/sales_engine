@@ -17,6 +17,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_instantiates_repositories
+    skip
     @engine.startup
 
     handler = FileHandler.new('event_attendees.csv')

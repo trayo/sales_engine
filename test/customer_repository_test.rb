@@ -3,9 +3,10 @@ require_relative 'test_helper'
 require_relative '../lib/customer_repository'
 
 class CustomerRepositoryTest < Minitest::Test
+  attr_reader :customers, :customer_repo, :sales_engine
 
   def setup
-    customers = [
+    @customers = [
       {
       id:         '1',
       first_name: 'Joey',
@@ -41,9 +42,10 @@ class CustomerRepositoryTest < Minitest::Test
       created_at: '2012-03-27 14:54:10 UTC',
       updated_at: '2012-03-27 14:54:10 UTC'
       }
-    ].map {|row| Customer.new(row)}
+    ].map {|row| Customer.new(row, customer_repo)}
 
-    @customer_repo = CustomerRepository.new(customers)
+    @sales_engine = Minitest::Mock.new
+    @customer_repo = CustomerRepository.new(sales_engine, customers)
   end
 
   def test_all
@@ -61,7 +63,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_by_first_name
     customer = @customer_repo.find_by_first_name('Mariah')
-    assert_equal 'Mariah'.downcase, customer.first_name
+    assert_equal 'Mariah', customer.first_name
   end
 
   def test_find_all_by_first_name
@@ -75,7 +77,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_find_by_last_name
     customer = @customer_repo.find_by_last_name('Toy')
-    assert_equal 'Toy'.downcase, customer.last_name
+    assert_equal 'Toy', customer.last_name
   end
 
   def test_find_all_by_last_name
@@ -88,11 +90,10 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_loads_a_file
-    load_test = CustomerRepository.new
-    load_test.load('./data/test_customers.csv')
+    load_test = CustomerRepository.new(sales_engine, './data/test_customers.csv')
     assert_equal 25, load_test.customers.size
     customer = load_test.find_by_first_name('Mariah')
-    assert_equal 'Mariah'.downcase, customer.first_name
+    assert_equal 'Mariah', customer.first_name
     assert_equal 3, customer.id
   end
 

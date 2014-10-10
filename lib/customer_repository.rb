@@ -3,11 +3,11 @@ require_relative 'file_loader'
 
 class CustomerRepository
 
-  attr_reader :customers
+  attr_reader :customers, :engine
 
-  def initialize(engine, path)
+  def initialize(engine, customers = '')
     @engine    = engine
-    @customers = load(path + "/customers.csv")
+    customers.class == Array ? @customers = customers : @customers = load_file(customers)
   end
 
   def all
@@ -23,27 +23,27 @@ class CustomerRepository
   end
 
   def find_by_first_name(first_name)
-    customers.find {|customer| customer.first_name == first_name.downcase}
+    customers.find {|customer| customer.first_name.downcase == first_name.downcase}
   end
 
   def find_all_by_first_name(first_name)
-    customers.find_all {|customer| customer.first_name == first_name.downcase}
+    customers.find_all {|customer| customer.first_name.downcase == first_name.downcase}
   end
 
   def find_by_last_name(last_name)
-    customers.find {|customer| customer.last_name == last_name.downcase}
+    customers.find {|customer| customer.last_name.downcase == last_name.downcase}
   end
 
   def find_all_by_last_name(last_name)
-    customers.find_all {|customer| customer.last_name == last_name.downcase}
+    customers.find_all {|customer| customer.last_name.downcase == last_name.downcase}
   end
 
   def inspect
     "#<#{self.class} #{customers.size} rows>"
   end
 
-  def load(filepath)
+  def load_file(filepath)
     contents = FileLoader.load_file(filepath)
-    contents.map { |row| Customer.new(row) }
+    contents.map { |row| Customer.new(row, self) }
   end
 end
