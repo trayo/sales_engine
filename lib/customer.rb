@@ -15,11 +15,12 @@ class Customer
     @repository = repository
   end
 
-  def set_invoice_repository(invoice_repository)
-    @invoice_repository = invoice_repository
-  end
-
-  def invoices
-    @invoice_repository.find_all_by_customer_id(id)
-  end
+  # Kim's example code -- remove
+  # def set_invoice_repository(invoice_repository)
+  #   @invoice_repository = invoice_repository
+  # end
+  #
+  # def invoices
+  #   @invoice_repository.find_all_by_customer_id(id)
+  # end
 end
