@@ -4,6 +4,8 @@ require_relative '../lib/invoice'
 
 class InvoiceTest < MiniTest::Test
 
+  attr_reader :repository, :invoice
+
   def setup
     data = {
       id:          '1',
@@ -14,15 +16,16 @@ class InvoiceTest < MiniTest::Test
       updated_at:  '2012-03-25 09:54:09 UTC'
     }
 
-    @invoice = Invoice.new(data)
+    @repository = repository
+    @invoice    = Invoice.new(data, repository)
   end
 
   def test_invoice_attributes
-    assert_equal 1, @invoice.id
-    assert_equal 1, @invoice.customer_id
-    assert_equal 539, @invoice.merchant_id
-    assert_equal 'shipped', @invoice.status
-    assert_equal '2012-03-25 09:54:09 UTC', @invoice.created_at
-    assert_equal '2012-03-25 09:54:09 UTC', @invoice.updated_at
+    assert_equal 1, invoice.id
+    assert_equal 1, invoice.customer_id
+    assert_equal 539, invoice.merchant_id
+    assert_equal 'shipped', invoice.status
+    assert_equal '2012-03-25 09:54:09 UTC', invoice.created_at
+    assert_equal '2012-03-25 09:54:09 UTC', invoice.updated_at
   end
 end
