@@ -42,7 +42,7 @@ class CustomerRepository
   end
 
   def load_file(filepath)
-    contents = FileLoader.load_file(filepath + "/customers.csv")
+    contents = FileLoader.load_file(filepath)
     contents.map { |row| Customer.new(row, self) }
   end
 end
