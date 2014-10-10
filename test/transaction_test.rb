@@ -3,6 +3,7 @@ require_relative 'test_helper'
 require_relative '../lib/transaction'
 
 class TransactionTest < MiniTest::Test
+  attr_reader :transaction, :repository
 
   def setup
     data = {
@@ -15,7 +16,8 @@ class TransactionTest < MiniTest::Test
       updated_at:                  '2012-03-27 14:54:09 UTC'
     }
 
-    @transaction = Transaction.new(data)
+    @repository = Minitest::Mock.new
+    @transaction = Transaction.new(data, repository)
   end
 
   def test_transaction_attributes

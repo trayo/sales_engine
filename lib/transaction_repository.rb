@@ -3,16 +3,12 @@ require_relative 'file_loader'
 
 class TransactionRepository
 
-  attr_reader :transactions
+  attr_reader :transactions, :engine
 
-  def initialize(engine, path)
+  def initialize(engine, transactions = '')
     @engine       = engine
-    @transactions = load(path + "/transactions.csv")
+    transactions.class == Array ? @transactions = transactions : @transactions = load_file(transactions)
   end
-
-  # def initialize(transactions = [])
-  #   @transactions = transactions
-  # end
 
   def all
     transactions
@@ -58,9 +54,9 @@ class TransactionRepository
     transactions.find_all {|transaction| transaction.result == result}
   end
 
-  def load(filepath)
+  def load_file(filepath)
     contents = FileLoader.load_file(filepath)
-    contents.map { |row| Transaction.new(row) }
+    contents.map { |row| Transaction.new(row, self) }
   end
 
   private
