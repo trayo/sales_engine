@@ -5,14 +5,14 @@ class TransactionRepository
 
   attr_reader :transactions
 
-  # def initialize(engine, path)
-  #   @engine       = engine
-  #   @transactions = load(path + "/transactions.csv")
-  # end
-
-  def initialize(transactions = [])
-    @transactions = transactions
+  def initialize(engine, path)
+    @engine       = engine
+    @transactions = load(path + "/transactions.csv")
   end
+
+  # def initialize(transactions = [])
+  #   @transactions = transactions
+  # end
 
   def all
     transactions
@@ -56,6 +56,11 @@ class TransactionRepository
 
   def find_all_by_result(result)
     transactions.find_all {|transaction| transaction.result == result}
+  end
+
+  def load(filepath)
+    contents = FileLoader.load_file(filepath)
+    contents.map { |row| Transaction.new(row) }
   end
 
   private
