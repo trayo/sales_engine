@@ -1,11 +1,13 @@
 require_relative 'merchant'
+require_relative 'file_loader'
 
 class MerchantRepository
 
-  attr_reader :merchants
+  attr_reader :merchants, :engine
 
-  def initialize(merchants = [])
-    @merchants = merchants
+  def initialize(engine, merchants = "")
+    @engine = engine
+    merchants.class == Array ? @merchants = merchants : @merchants = load_file(merchants)
   end
 
   def all
@@ -30,5 +32,10 @@ class MerchantRepository
 
   def inspect
     "#<#{self.class} #{merchants.size} rows>"
+  end
+
+  def load_file(filepath)
+    contents = FileLoader.load_file(filepath)
+    contents.map {|row| Merchant.new(row, self)}
   end
 end
