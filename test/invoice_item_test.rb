@@ -3,6 +3,7 @@ require_relative 'test_helper'
 require_relative '../lib/invoice_item'
 
 class InvoiceItemTest < MiniTest::Test
+  attr_reader :invoice_item, :repository
 
   def setup
     data = {
@@ -15,7 +16,8 @@ class InvoiceItemTest < MiniTest::Test
       updated_at: '2012-03-27 14:54:09 UTC'
     }
 
-    @invoice_item = InvoiceItem.new(data)
+    @repository = Minitest::Mock.new
+    @invoice_item = InvoiceItem.new(data, repository)
   end
 
   def test_invoice_item_attributes

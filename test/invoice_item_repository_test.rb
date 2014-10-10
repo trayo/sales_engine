@@ -3,9 +3,10 @@ require_relative 'test_helper'
 require_relative '../lib/invoice_item_repository'
 
 class InvoiceItemRepositoryTest < Minitest::Test
+  attr_reader :invoice_items, :invoice_item_repo, :sales_engine
 
   def setup
-    invoice_items = [
+    @invoice_items = [
       {
         id: "1",
         item_id: "539",
@@ -51,9 +52,10 @@ class InvoiceItemRepositoryTest < Minitest::Test
         created_at: '2012-03-27 14:54:13 UTC',
         updated_at: '2012-03-27 14:54:13 UTC'
       }
-    ].map {|row| InvoiceItem.new(row)}
+    ].map {|row| InvoiceItem.new(row, invoice_item_repo)}
 
-    @invoice_item_repo = InvoiceItemRepository.new(invoice_items)
+    @sales_engine = Minitest::Mock.new
+    @invoice_item_repo = InvoiceItemRepository.new(sales_engine, invoice_items)
   end
 
   def test_all
@@ -108,6 +110,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_find_all_by_unit_price_returns_empty_array
     empty_items = @invoice_item_repo.find_all_by_unit_price("elephant")
     assert_equal [], empty_items
+  end
+
+  def test_it_loads_a_file
+    load_test = InvoiceItemRepository.new(sales_engine, './data/test_invoice_items.csv')
+    assert_equal 25, load_test.invoice_items.size
+    invoice_items = load_test.find_by_item_id(539)
+    assert_equal 539, invoice_items.item_id
+    assert_equal 1, invoice_items.id
   end
 
 end

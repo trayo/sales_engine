@@ -3,16 +3,12 @@ require_relative 'file_loader'
 
 class InvoiceItemRepository
 
-  attr_reader :invoice_items
+  attr_reader :invoice_items, :engine
 
-  def initialize(engine, path)
+  def initialize(engine, invoice_items = '')
     @engine        = engine
-    @invoice_items = load(path + "/invoice_items.csv")
+    invoice_items.class == Array ? @invoice_items = invoice_items : @invoice_items = load_file(invoice_items)
   end
-
-  # def initialize(invoice_items = [])
-  #   @invoice_items = invoice_items
-  # end
 
   def all
     invoice_items
@@ -58,9 +54,9 @@ class InvoiceItemRepository
     invoice_items.find_all {|invoice_item| invoice_item.unit_price == unit_price}
   end
 
-  def load(filepath)
+  def load_file(filepath)
     contents = FileLoader.load_file(filepath)
-    contents.map { |row| InvoiceItem.new(row) }
+    contents.map { |row| InvoiceItem.new(row, self) }
   end
 
   private
