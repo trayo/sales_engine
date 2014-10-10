@@ -3,7 +3,7 @@ require_relative 'test_helper'
 require_relative '../lib/item_repository'
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader :items, :item_repo
+  attr_reader :items, :item_repo, :sales_engine
 
   def setup
     @items = [
@@ -54,7 +54,8 @@ class ItemRepositoryTest < Minitest::Test
       }
     ].map {|row| Item.new(row, item_repo)}
 
-    @item_repo = ItemRepository.new(items)
+    @sales_engine = Minitest::Mock.new
+    @item_repo    = ItemRepository.new(sales_engine, items)
   end
 
   def test_all
@@ -118,6 +119,14 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id_returns_empty_array
     empty_items = @item_repo.find_all_by_merchant_id(-64)
     assert_equal [], empty_items
+  end
+
+  def test_it_loads_a_file
+    load_test = ItemRepository.new(sales_engine, './data/test_items.csv')
+    assert_equal 25, load_test.items.size
+    item = load_test.find_by_name('Item Itaque Consequatur')
+    assert_equal 'Item Itaque Consequatur', item.name
+    assert_equal 14, item.id
   end
 
 end

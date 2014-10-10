@@ -1,11 +1,13 @@
 require_relative 'item'
+require_relative 'file_loader'
 
 class ItemRepository
 
-  attr_reader :items
+  attr_reader :items, :engine
 
-  def initialize(items = [])
-    @items = items
+  def initialize(engine, items = "")
+    @engine = engine
+    items.class == Array ? @items  = items : @items  = load_file(items)
   end
 
   def all
@@ -54,6 +56,11 @@ class ItemRepository
 
   def inspect
     "#<#{self.class} #{items.size} rows>"
+  end
+
+  def load_file(filepath)
+    contents = FileLoader.load_file(filepath)
+    contents.map { |row| Item.new(row, self) }
   end
 
 end
