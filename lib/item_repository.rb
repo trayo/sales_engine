@@ -7,7 +7,7 @@ class ItemRepository
 
   def initialize(engine, items = "")
     @engine = engine
-    items.class == Array ? @items  = items : @items  = load_file(items)
+    items.class == Array ? @items = items : @items = load_file(items)
   end
 
   def all
