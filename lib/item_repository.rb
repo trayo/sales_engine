@@ -1,11 +1,13 @@
 require_relative 'item'
+require_relative 'file_loader'
 
 class ItemRepository
 
-  attr_reader :items
+  attr_reader :items, :engine
 
-  def initialize(items = [])
-    @items = items
+  def initialize(engine, items = "")
+    @engine = engine
+    items.class == Array ? @items = items : @items = load_file(items)
   end
 
   def all
@@ -17,53 +19,48 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    find_by_attribute(:id, id)
+    items.find {|item| item.id == id}
   end
 
   def find_by_name(name)
-    find_by_attribute(:name, name.downcase!)
+    items.find {|item| item.name.downcase == name.downcase}
   end
 
   def find_all_by_name(name)
-    find_all_by_attribute(:name, name.downcase!)
+    items.find_all {|item| item.name.downcase == name.downcase}
   end
 
   def find_by_description(description)
-    find_by_attribute(:description, description.downcase!)
+    items.find {|item| item.description.downcase == description.downcase}
   end
 
   def find_all_by_description(description)
-    find_all_by_attribute(:description, description.downcase!)
+    items.find_all {|item| item.description.downcase == description.downcase}
   end
 
   def find_by_unit_price(unit_price)
-    find_by_attribute(:unit_price, unit_price)
+    items.find {|item| item.unit_price == unit_price}
   end
 
   def find_all_by_unit_price(unit_price)
-    find_all_by_attribute(:unit_price, unit_price)
+    items.find_all {|item| item.unit_price == unit_price}
   end
 
   def find_by_merchant_id(merchant_id)
-    find_by_attribute(:merchant_id, merchant_id)
+    items.find {|item| item.merchant_id == merchant_id}
   end
 
   def find_all_by_merchant_id(merchant_id)
-    find_all_by_attribute(:merchant_id, merchant_id)
+    items.find_all {|item| item.merchant_id == merchant_id}
   end
 
   def inspect
     "#<#{self.class} #{items.size} rows>"
   end
 
-  private
-
-  def find_by_attribute(attribute, value)
-    items.find {|item| item.public_send(attribute) == value}
-  end
-
-  def find_all_by_attribute(attribute, value)
-    items.find_all {|item| item.public_send(attribute) == value}
+  def load_file(filepath)
+    contents = FileLoader.load_file(filepath)
+    contents.map { |row| Item.new(row, self) }
   end
 
 end

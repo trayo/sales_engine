@@ -1,11 +1,13 @@
 require_relative 'invoice'
+require_relative 'file_loader'
 
 class InvoiceRepository
 
-  attr_reader :invoices
+  attr_reader :invoices, :engine
 
-  def initialize(invoices = [])
-    @invoices = invoices
+  def initialize(engine, invoices = "")
+    @engine = engine
+    invoices.class == Array ? @invoices = invoices : @invoices = load_file(invoices)
   end
 
   def all
@@ -17,45 +19,39 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    find_by_attribute(:id, id)
+    invoices.find {|invoice| invoice.id == id}
   end
 
   def find_by_customer_id(customer_id)
-    find_by_attribute(:customer_id, customer_id)
+    invoices.find {|invoice| invoice.customer_id == customer_id}
   end
 
   def find_all_by_customer_id(customer_id)
-    find_all_by_attribute(:customer_id, customer_id)
+    invoices.find_all {|invoice| invoice.customer_id == customer_id}
   end
 
   def find_by_merchant_id(merchant_id)
-    find_by_attribute(:merchant_id, merchant_id)
+    invoices.find {|invoice| invoice.merchant_id == merchant_id}
   end
 
   def find_all_by_merchant_id(merchant_id)
-    find_all_by_attribute(:merchant_id, merchant_id)
+    invoices.find_all {|invoice| invoice.merchant_id == merchant_id}
   end
 
   def find_by_status(status)
-    find_by_attribute(:status, status)
+    invoices.find {|invoice| invoice.status == status}
   end
 
   def find_all_by_status(status)
-    find_all_by_attribute(:status, status)
+    invoices.find_all {|invoice| invoice.status == status}
   end
 
   def inspect
     "#<#{self.class} #{invoices.size} rows>"
   end
 
-  private
-
-  def find_by_attribute(attribute, value)
-    invoices.find {|invoice| invoice.public_send(attribute) == value}
+  def load_file(filepath)
+    contents = FileLoader.load_file(filepath)
+    contents.map {|row| Invoice.new(row, self)}
   end
-
-  def find_all_by_attribute(attribute, value)
-    invoices.find_all {|invoice| invoice.public_send(attribute) == value}
-  end
-
 end

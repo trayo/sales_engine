@@ -4,8 +4,10 @@ require_relative '../lib/invoice_repository'
 
 class InvoiceRepositoryTest < Minitest::Test
 
+  attr_reader :invoices, :invoice_repo, :sales_engine
+
   def setup
-    invoices = [
+    @invoices = [
       {
       id:          '1',
       customer_id: '1',
@@ -46,67 +48,76 @@ class InvoiceRepositoryTest < Minitest::Test
       created_at:  '2012-03-27 14:54:13 UTC',
       updated_at:  '2012-03-27 14:54:13 UTC'
       }
-    ].map {|row| Invoice.new(row)}
+    ].map {|row| Invoice.new(row, invoice_repo)}
 
-    @invoice_repo = InvoiceRepository.new(invoices)
+    @sales_engine = Minitest::Mock.new
+    @invoice_repo = InvoiceRepository.new(sales_engine, invoices)
   end
 
   def test_all
-    assert_equal 5, @invoice_repo.all.size
+    assert_equal 5, invoice_repo.all.size
   end
 
   def test_random
-    assert_class = Invoice, @invoice_repo.random
+    assert_class = Invoice, invoice_repo.random
   end
 
   def test_find_by_id
-    invoice = @invoice_repo.find_by_id(4)
+    invoice = invoice_repo.find_by_id(4)
     assert_equal 4, invoice.id
   end
 
   def test_find_by_customer_id
-    invoice = @invoice_repo.find_by_customer_id(2)
+    invoice = invoice_repo.find_by_customer_id(2)
     assert_equal 2, invoice.customer_id
   end
 
   def test_find_all_by_customer_id
-    invoices = @invoice_repo.find_all_by_customer_id(1)
+    invoices = invoice_repo.find_all_by_customer_id(1)
     assert_equal 2, invoices.size
   end
 
   def test_find_all_by_customer_id_returns_empty_array
-    empty_invoices = @invoice_repo.find_all_by_customer_id(-64)
+    empty_invoices = invoice_repo.find_all_by_customer_id(-64)
     assert_equal [], empty_invoices
   end
 
   def test_find_by_merchant_id
-    invoice = @invoice_repo.find_by_merchant_id(86)
+    invoice = invoice_repo.find_by_merchant_id(86)
     assert_equal 86, invoice.merchant_id
   end
 
   def test_find_all_by_merchant_id
-    invoices = @invoice_repo.find_all_by_merchant_id(44)
+    invoices = invoice_repo.find_all_by_merchant_id(44)
     assert_equal 2, invoices.size
   end
 
   def test_find_all_by_merchant_id_returns_empty_array
-    empty_invoices = @invoice_repo.find_all_by_merchant_id(-64)
+    empty_invoices = invoice_repo.find_all_by_merchant_id(-64)
     assert_equal [], empty_invoices
   end
 
   def test_find_by_status
-    invoice = @invoice_repo.find_by_status("canceled")
+    invoice = invoice_repo.find_by_status("canceled")
     assert_equal "canceled", invoice.status
   end
 
   def test_find_all_by_status
-    invoices = @invoice_repo.find_all_by_status("shipped")
+    invoices = invoice_repo.find_all_by_status("shipped")
     assert_equal 4, invoices.size
   end
 
   def test_find_all_by_status_returns_empty_array
-    empty_invoices = @invoice_repo.find_all_by_status("elephant")
+    empty_invoices = invoice_repo.find_all_by_status("elephant")
     assert_equal [], empty_invoices
+  end
+
+  def test_it_loads_a_file
+    load_test = InvoiceRepository.new(sales_engine, './data/test_invoices.csv')
+    assert_equal 25, load_test.invoices.size
+    invoice = load_test.find_by_customer_id(4)
+    assert_equal 44, invoice.merchant_id
+    assert_equal 4, invoice.customer_id
   end
 
 end
