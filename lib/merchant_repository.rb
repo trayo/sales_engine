@@ -2,10 +2,9 @@ require_relative 'merchant'
 require_relative 'file_loader'
 
 class MerchantRepository
-
   attr_reader :merchants, :engine
 
-  def initialize(engine, merchants = "")
+  def initialize(engine, merchants = '')
     @engine = engine
     merchants.class == Array ? @merchants = merchants : @merchants = load_file(merchants)
   end
@@ -19,15 +18,15 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    merchants.find {|merchant| merchant.id == id}
+    merchants.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
-    merchants.find {|merchant| merchant.name.downcase == name.downcase}
+    merchants.find { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
-    merchants.find_all {|merchant| merchant.name.downcase == name.downcase}
+    merchants.find_all { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def inspect
@@ -36,6 +35,6 @@ class MerchantRepository
 
   def load_file(filepath)
     contents = FileLoader.load_file(filepath)
-    contents.map {|row| Merchant.new(row, self)}
+    contents.map { |row| Merchant.new(row, self) }
   end
 end
