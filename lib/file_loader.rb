@@ -1,4 +1,5 @@
 require 'csv'
+require 'bigdecimal'
 
 class FileLoader
   def self.load_file(file_name)

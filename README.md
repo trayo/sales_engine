@@ -1,4 +1,7 @@
 [![Stories in Ready](https://badge.waffle.io/trayo/sales_engine.png?label=ready&title=Ready)](https://waffle.io/trayo/sales_engine)
+
+[![Code Climate](https://codeclimate.com/github/trayo/sales_engine/badges/gpa.svg)](https://codeclimate.com/github/trayo/sales_engine)
+
 # Sales Engine
 
 Project completion goals for first check-in:

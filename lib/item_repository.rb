@@ -61,4 +61,12 @@ class ItemRepository
     contents = FileLoader.load_file(filepath)
     contents.map { |row| Item.new(row, self) }
   end
+
+  def invoice_items(id)
+    engine.item_invoice_items(id)
+  end
+
+  def merchant(merchant_id)
+    engine.item_merchant(merchant_id)
+  end
 end

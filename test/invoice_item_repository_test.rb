@@ -99,12 +99,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_unit_price
-    invoice_item = @invoice_item_repo.find_by_unit_price("13635")
-    assert_equal "13635", invoice_item.unit_price
+    invoice_item = @invoice_item_repo.find_by_unit_price(BigDecimal.new("136.35"))
+    assert_equal (BigDecimal.new("136.35")), invoice_item.unit_price
   end
 
   def test_find_all_by_unit_price
-    assert_equal 2, @invoice_item_repo.find_all_by_unit_price("72018").size
+    assert_equal 2, @invoice_item_repo.find_all_by_unit_price(BigDecimal.new("720.18")).size
   end
 
   def test_find_all_by_unit_price_returns_empty_array

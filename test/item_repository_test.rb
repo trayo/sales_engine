@@ -97,12 +97,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_unit_price
-    item = item_repo.find_by_unit_price('22951')
-    assert_equal "22951", item.unit_price
+    item = item_repo.find_by_unit_price(BigDecimal.new("229.51"))
+    assert_equal BigDecimal.new("229.51"), item.unit_price
   end
 
   def test_find_all_by_unit_price
-    items = item_repo.find_all_by_unit_price('75107')
+    items = item_repo.find_all_by_unit_price(BigDecimal.new('751.07'))
     assert_equal 2, items.size
   end
 
