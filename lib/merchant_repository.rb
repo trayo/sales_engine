@@ -29,6 +29,10 @@ class MerchantRepository
     merchants.find_all { |merchant| merchant.name.downcase == name.downcase }
   end
 
+  def items(id)
+    engine.merchant_items(id)
+  end
+
   def inspect
     "#<#{self.class} #{merchants.size} rows>"
   end

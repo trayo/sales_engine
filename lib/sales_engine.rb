@@ -27,4 +27,13 @@ class SalesEngine
     @merchant_repository     = MerchantRepository.new(self, path + "/merchants.csv")
     @invoice_repository      = InvoiceRepository.new(self, path + "/invoices.csv")
   end
+
+  def merchant_items(id)
+    item_repository.find_all_by_merchant_id(id)
+  end
+
+  def merchant_invoices(id)
+    invoice_repository.find_all_by_merchant_id(id)
+  end
+
 end
