@@ -58,6 +58,14 @@ class InvoiceItemRepository
     contents.map { |row| InvoiceItem.new(row, self) }
   end
 
+  def item(item_id)
+    engine.invoice_item_item(item_id)
+  end
+
+  def invoice(invoice_id)
+    engine.invoice_item_invoice(invoice_id)
+  end
+
   private
 
   def inspect
