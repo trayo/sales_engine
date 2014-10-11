@@ -26,5 +26,4 @@ class Item
   def merchant
     repository.merchant(merchant_id)
   end
-
 end
