@@ -15,12 +15,9 @@ class Customer
     @repository = repository
   end
 
-  # Kim's example code -- remove
-  # def set_invoice_repository(invoice_repository)
-  #   @invoice_repository = invoice_repository
-  # end
-  #
-  # def invoices
-  #   @invoice_repository.find_all_by_customer_id(id)
-  # end
+  def invoices
+    repository.engine
+              .invoice_repository
+              .find_all_by_customer_id(id)
+  end
 end
