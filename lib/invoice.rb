@@ -34,4 +34,18 @@ class Invoice
               .invoice_item_repository
               .find_all_by_invoice_id(id)
   end
+
+
+  def items
+    invoice_item_set = repository.engine
+                                 .invoice_item_repository
+                                 .find_all_by_invoice_id(id)
+
+    item_set = invoice_item_set.map {|ii| ii.item_id}
+    item_set.map do |item_num|
+      repository.engine
+                .item_repository
+                .find_by_id(item_num)
+    end
+  end
 end
