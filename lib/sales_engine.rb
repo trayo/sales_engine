@@ -68,4 +68,8 @@ class SalesEngine
     item_set = invoice_item_set.map {|ii| ii.item_id}
     item_set.map { |item_num| item_repository.find_by_id(item_num) }
   end
+
+  def customer_invoices(id)
+    invoice_repository.find_all_by_customer_id(id)
+  end
 end
