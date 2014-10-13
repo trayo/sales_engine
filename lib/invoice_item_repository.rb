@@ -57,8 +57,8 @@ class InvoiceItemRepository
     engine.invoice_item_item(item_id)
   end
 
-  def invoice(invoice_id)
-    engine.invoice_item_invoice(invoice_id)
+  def invoice(id_from_invoice)
+    engine.invoice_item_invoice(id_from_invoice)
   end
 
   private
