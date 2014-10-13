@@ -18,15 +18,11 @@ class Invoice
   end
 
   def customer
-    repository.engine
-              .customer_repository
-              .find_by_id(customer_id)
+    repository.customer(customer_id)
   end
 
   def transactions
-    repository.engine
-              .transaction_repository
-              .find_all_by_invoice_id(id)
+    repository.transactions(id)
   end
 
   def invoice_items
