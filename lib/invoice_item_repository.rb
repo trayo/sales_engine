@@ -53,11 +53,6 @@ class InvoiceItemRepository
     invoice_items.find_all { |invoice_item| invoice_item.unit_price == unit_price }
   end
 
-  def load_file(filepath)
-    contents = FileLoader.load_file(filepath)
-    contents.map { |row| InvoiceItem.new(row, self) }
-  end
-
   def item(item_id)
     engine.invoice_item_item(item_id)
   end
@@ -70,5 +65,10 @@ class InvoiceItemRepository
 
   def inspect
     "#<#{self.class} #{invoice_items.size} rows>"
+  end
+
+  def load_file(filepath)
+    contents = FileLoader.load_file(filepath)
+    contents.map { |row| InvoiceItem.new(row, self) }
   end
 end

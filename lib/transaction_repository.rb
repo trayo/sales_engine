@@ -53,14 +53,14 @@ class TransactionRepository
     transactions.find_all { |transaction| transaction.result == result }
   end
 
-  def load_file(filepath)
-    contents = FileLoader.load_file(filepath)
-    contents.map { |row| Transaction.new(row, self) }
-  end
-
   private
 
   def inspect
     "#<#{self.class} #{transactions.size} rows>"
+  end
+
+  def load_file(filepath)
+    contents = FileLoader.load_file(filepath)
+    contents.map { |row| Transaction.new(row, self) }
   end
 end
