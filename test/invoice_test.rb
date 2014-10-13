@@ -31,4 +31,10 @@ class InvoiceTest < MiniTest::Test
   def test_it_has_a_repository
     assert invoice.repository
   end
+
+  def test_items
+    repository.expect(:items, [], [1])
+    invoice.items
+    repository.verify
+  end
 end

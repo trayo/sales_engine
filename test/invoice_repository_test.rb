@@ -120,4 +120,10 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 4, invoice.customer_id
   end
 
+  def test_items
+    sales_engine.expect(:items_from_invoice_items, [], [1])
+    invoice_repo.items(1)
+    sales_engine.verify
+  end
+
 end

@@ -45,6 +45,22 @@ class InvoiceRepository
     invoices.find_all { |invoice| invoice.status == status }
   end
 
+  def transactions(id_from_invoice)
+    engine.invoice_transactions(id_from_invoice)
+  end
+
+  def customer(customer_id)
+    engine.invoice_customer(customer_id)
+  end
+
+  def invoice_items(id_from_invoice)
+    engine.find_invoice_items_for_invoice(id_from_invoice)
+  end
+
+  def items(id_from_invoice)
+    engine.items_from_invoice_items(id_from_invoice)
+  end
+
   private
 
   def inspect
