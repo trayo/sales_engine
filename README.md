@@ -1,6 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/trayo/sales_engine.png?label=ready&title=Ready)](https://waffle.io/trayo/sales_engine)
-
-[![Code Climate](https://codeclimate.com/github/trayo/sales_engine/badges/gpa.svg)](https://codeclimate.com/github/trayo/sales_engine)
+[![Stories in Ready](https://badge.waffle.io/trayo/sales_engine.png?label=ready&title=Ready)](https://waffle.io/trayo/sales_engine)    [![Code Climate](https://codeclimate.com/github/trayo/sales_engine/badges/gpa.svg)](https://codeclimate.com/github/trayo/sales_engine)
 
 # Sales Engine
 
@@ -16,7 +14,16 @@ Project completion goals for first check-in:
 
 * Mock at least one relationship and one piece of business intelligence
 
-(insert project completion goals for second check-in here)
+Project completion goals for second check-in:
+
+* Have spec_harness running
+
+* Have all relationships passing in spec_harness
+
+* Code review for style / architecture
+
+* Begin building business intelligence (14 tests remaining)
+
 
 # Check-in Rubrics
 
