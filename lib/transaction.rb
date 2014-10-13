@@ -20,9 +20,6 @@ class Transaction
   end
 
   def invoice
-    customer = repository.engine
-                         .invoice_repository
-                         .find_by_id(invoice_id)
-
+    repository.invoice(invoice_id)
   end
 end

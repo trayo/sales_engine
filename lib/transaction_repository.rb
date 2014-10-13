@@ -53,6 +53,10 @@ class TransactionRepository
     transactions.find_all { |transaction| transaction.result == result }
   end
 
+  def invoice(invoice_id)
+    engine.transaction_invoice(invoice_id)
+  end
+
   private
 
   def inspect
