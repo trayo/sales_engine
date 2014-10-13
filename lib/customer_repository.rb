@@ -37,6 +37,10 @@ class CustomerRepository
     customers.find_all { |customer| customer.last_name.downcase == last_name.downcase }
   end
 
+  def invoices(id)
+    engine.customer_invoices(id)
+  end
+
   private
 
   def inspect
