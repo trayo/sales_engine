@@ -20,7 +20,6 @@ class CustomerTest < MiniTest::Test
   end
 
   def test_customer_attributes
-    skip
     assert_equal 1, customer.id
     assert_equal 'Joey', customer.first_name
     assert_equal 'Ondricka', customer.last_name
