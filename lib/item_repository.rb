@@ -60,7 +60,7 @@ class ItemRepository
   def merchant(merchant_id)
     engine.item_merchant(merchant_id)
   end
-  
+
   private
 
   def inspect
