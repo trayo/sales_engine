@@ -90,7 +90,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_loads_a_file
-    load_test = CustomerRepository.new(sales_engine, './data/test_customers.csv')
+    load_test = CustomerRepository.new(sales_engine, './data/test/customers.csv')
     assert_equal 25, load_test.customers.size
     customer = load_test.find_by_first_name('Mariah')
     assert_equal 'Mariah', customer.first_name

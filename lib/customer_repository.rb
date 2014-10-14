@@ -1,3 +1,5 @@
+
+
 require_relative 'customer'
 require_relative 'file_loader'
 
@@ -6,7 +8,7 @@ class CustomerRepository
 
   def initialize(engine, customers)
     @engine    = engine
-    customers.class == Array ? @customers = customers : @customers = load_file(customers)
+    @customers = customers.class == Array ? customers : load_file(customers)
   end
 
   def all

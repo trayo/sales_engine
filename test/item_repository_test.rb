@@ -122,7 +122,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_loads_a_file
-    load_test = ItemRepository.new(sales_engine, './data/test_items.csv')
+    load_test = ItemRepository.new(sales_engine, './data/test/items.csv')
     assert_equal 25, load_test.items.size
     item = load_test.find_by_name('Item Itaque Consequatur')
     assert_equal 'Item Itaque Consequatur', item.name

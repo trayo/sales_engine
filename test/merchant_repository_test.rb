@@ -71,7 +71,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_loads_a_file
-    load_test = MerchantRepository.new(sales_engine, './data/test_merchants.csv')
+    load_test = MerchantRepository.new(sales_engine, './data/test/merchants.csv')
     assert_equal 25, load_test.merchants.size
     merchant = load_test.find_by_name('Williamson Group')
     assert_equal 'Williamson Group', merchant.name
