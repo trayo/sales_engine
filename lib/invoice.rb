@@ -32,4 +32,8 @@ class Invoice
   def items
     repository.items(id)
   end
+
+  def invoice_items_total
+    invoice_items.reduce(0) { |sum, item| sum + item.total }
+  end
 end

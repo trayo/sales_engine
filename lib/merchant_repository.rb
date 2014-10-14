@@ -37,6 +37,10 @@ class MerchantRepository
     engine.merchant_invoices(id)
   end
 
+  def revenue(date)
+
+  end
+
   private
 
   def inspect

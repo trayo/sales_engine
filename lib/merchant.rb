@@ -20,4 +20,8 @@ class Merchant
   def invoices
     repository.invoices(id)
   end
+
+  def revenue
+    invoices.map { |invoice| invoice.invoice_items_total }.reduce(:+)
+  end
 end

@@ -26,4 +26,8 @@ class InvoiceItem
   def item
     repository.item(item_id)
   end
+
+  def total
+    quantity * unit_price
+  end
 end
