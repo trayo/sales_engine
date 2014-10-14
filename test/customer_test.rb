@@ -23,8 +23,8 @@ class CustomerTest < MiniTest::Test
     assert_equal 1, customer.id
     assert_equal 'Joey', customer.first_name
     assert_equal 'Ondricka', customer.last_name
-    assert_class = DateTime, customer.created_at
-    assert_class = DateTime, customer.updated_at
+    assert_class = Date, customer.created_at
+    assert_class = Date, customer.updated_at
   end
 
   def test_transactions

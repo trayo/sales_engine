@@ -25,8 +25,8 @@ class ItemTest < MiniTest::Test
     assert_equal 'Nihil autem sit odio inventore deleniti.', item.description
     assert_equal BigDecimal.new('751.07'), item.unit_price
     assert_equal 1, item.merchant_id
-    assert_equal '2012-03-27 14:53:59 UTC', item.created_at
-    assert_equal '2012-03-27 14:53:59 UTC', item.updated_at
+    assert_class = Date, item.created_at
+    assert_class = Date, item.updated_at
   end
 
 	def test_it_has_a_repository
