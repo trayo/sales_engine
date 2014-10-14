@@ -113,7 +113,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_loads_a_file
-    load_test = InvoiceRepository.new(sales_engine, './data/test_invoices.csv')
+    load_test = InvoiceRepository.new(sales_engine, './data/test/invoices.csv')
     assert_equal 25, load_test.invoices.size
     invoice = load_test.find_by_customer_id(4)
     assert_equal 44, invoice.merchant_id

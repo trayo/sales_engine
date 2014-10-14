@@ -117,7 +117,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_loads_a_file
-    load_test = TransactionRepository.new(sales_engine, './data/test_transactions.csv')
+    load_test = TransactionRepository.new(sales_engine, './data/test/transactions.csv')
     assert_equal 25, load_test.transactions.size
   end
 end
