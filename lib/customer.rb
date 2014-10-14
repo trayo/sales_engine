@@ -18,4 +18,8 @@ class Customer
   def invoices
     repository.invoices(id)
   end
+
+  def transactions
+    repository.transactions(id)
+  end
 end

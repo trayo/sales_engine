@@ -97,4 +97,10 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 3, customer.id
   end
 
+  def test_transactions
+    sales_engine.expect(:customer_transactions, [], [1])
+    customer_repo.transactions(1)
+    sales_engine.verify
+  end
+
 end

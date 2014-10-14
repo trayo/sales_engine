@@ -41,6 +41,10 @@ class CustomerRepository
     engine.customer_invoices(id)
   end
 
+  def transactions(customer_id)
+    engine.customer_transactions(customer_id)
+  end
+
   private
 
   def inspect
