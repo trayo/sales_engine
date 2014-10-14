@@ -61,6 +61,17 @@ class InvoiceItemRepository
     engine.invoice_item_invoice(id_from_invoice)
   end
 
+  def total_quantity
+    successful_items = invoice_items.reject do |item|
+      item.failed?
+    end
+    items = successful_items.group_by { |ii| ii.item_id}
+    quantities = items.keys.map do |key|
+      items[key].map { |item| item.quantity }.reduce(0, :+)
+    end
+    items.keys.zip(quantities).sort_by {|key, quantity| quantity}.reverse
+  end
+
   private
 
   def inspect
