@@ -38,7 +38,7 @@ class MerchantRepository
   end
 
   def revenue(date)
-    engine.merchant_invoices.reduce(0) { |sum, merchant| sum + merchant.revenue(date) }
+    merchants.reduce(0) { |sum, merchant| sum + merchant.revenue(date) }
   end
 
   private
