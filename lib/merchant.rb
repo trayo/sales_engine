@@ -36,6 +36,6 @@ class Merchant
       else
         invoice.invoice_items_total
       end
-    end.reduce(:+)
+    end.reduce(0, :+)
   end
 end
