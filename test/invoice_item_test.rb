@@ -26,8 +26,8 @@ class InvoiceItemTest < MiniTest::Test
     assert_equal 539, @invoice_item.invoice_id
     assert_equal 1, @invoice_item.quantity
     assert_equal BigDecimal.new('136.35'), @invoice_item.unit_price
-    assert_class = DateTime, @invoice_item.created_at
-    assert_class = DateTime, @invoice_item.updated_at
+    assert_class = Date, @invoice_item.created_at
+    assert_class = Date, @invoice_item.updated_at
 
   end
 end
