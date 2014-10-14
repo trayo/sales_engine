@@ -120,4 +120,10 @@ class TransactionRepositoryTest < Minitest::Test
     load_test = TransactionRepository.new(sales_engine, './data/test/transactions.csv')
     assert_equal 25, load_test.transactions.size
   end
+
+  def test_invoice
+    sales_engine.expect(:transaction_invoice, [], [1])
+    transaction_repo.invoice(1)
+    sales_engine.verify
+  end
 end

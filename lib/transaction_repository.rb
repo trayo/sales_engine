@@ -5,7 +5,7 @@ class TransactionRepository
   attr_reader :transactions, :engine
 
   def initialize(engine, transactions = '')
-    @engine       = engine
+    @engine = engine
     transactions.class == Array ? @transactions = transactions : @transactions = load_file(transactions)
   end
 
