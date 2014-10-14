@@ -12,8 +12,8 @@ class Invoice
     @customer_id = data[:customer_id].to_i
     @merchant_id = data[:merchant_id].to_i
     @status      = data[:status]
-    @created_at  = data[:created_at]
-    @updated_at  = data[:updated_at]
+    @created_at = DateTime.parse(data[:created_at])
+    @updated_at = DateTime.parse(data[:updated_at])
     @repository  = repository
   end
 
@@ -35,5 +35,13 @@ class Invoice
 
   def invoice_items_total
     invoice_items.reduce(0) { |sum, item| sum + item.total }
+  end
+
+  def failed?
+    transactions.any? { |transaction| transaction.failed? }
+  end
+
+  def valid_transactions
+    transactions.reject { |transaction| transaction.failed? }
   end
 end

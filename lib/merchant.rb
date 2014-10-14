@@ -8,8 +8,8 @@ class Merchant
   def initialize(data, repository)
     @id         = data[:id].to_i
     @name       = data[:name]
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
+    @created_at = DateTime.parse(data[:created_at])
+    @updated_at = DateTime.parse(data[:updated_at])
     @repository = repository
   end
 
@@ -21,7 +21,21 @@ class Merchant
     repository.invoices(id)
   end
 
-  def revenue
-    invoices.map { |invoice| invoice.invoice_items_total }.reduce(:+)
+  def revenue(date=nil)
+    if date
+      revenues(invoices.select { |invoice| invoice.created_at == date })
+    else
+      revenues(invoices)
+    end
+  end
+
+  def revenues(invoices)
+    invoices.map do |invoice|
+      if invoice.valid_transactions.empty?
+        0
+      else
+        invoice.invoice_items_total
+      end
+    end.reduce(:+)
   end
 end
