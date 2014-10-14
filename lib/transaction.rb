@@ -14,12 +14,16 @@ class Transaction
     @credit_card_number          = data[:credit_card_number]
     @credit_card_expiration_date = data[:credit_card_expiration_date]
     @result                      = data[:result]
-    @created_at                  = data[:created_at]
-    @updated_at                  = data[:updated_at]
+    @created_at                  = DateTime.parse(data[:created_at])
+    @updated_at                  = DateTime.parse(data[:updated_at])
     @repository                  = repository
   end
 
   def invoice
     repository.invoice(invoice_id)
+  end
+
+  def failed?
+    result == 'failed'
   end
 end

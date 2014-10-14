@@ -10,8 +10,8 @@ class Customer
     @id         = data[:id].to_i
     @first_name = data[:first_name]
     @last_name  = data[:last_name]
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
+    @created_at = DateTime.parse(data[:created_at])
+    @updated_at = DateTime.parse(data[:updated_at])
     @repository = repository
   end
 
