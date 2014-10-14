@@ -80,4 +80,9 @@ class SalesEngine
   def customer_transactions(customer_id)
     invoice_repository.find_all_by_customer_id(customer_id)
   end
+
+  def most_items_for_items(x)
+    total = invoice_item_repository.total_quantity
+    total[0...x].map { |item_id, quantity| item_repository.find_by_id(item_id) }
+  end
 end

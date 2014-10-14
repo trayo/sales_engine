@@ -30,4 +30,8 @@ class InvoiceItem
   def total
     quantity * unit_price
   end
+
+  def failed?
+    invoice.failed?
+  end
 end

@@ -61,6 +61,10 @@ class ItemRepository
     engine.item_merchant(merchant_id)
   end
 
+  def most_items(x)
+    engine.most_items_for_items(x)
+  end
+
   private
 
   def inspect
