@@ -47,6 +47,10 @@ class CustomerRepository
     engine.customer_transactions(customer_id)
   end
 
+  def find_favorite_merchant(customer_id)
+    engine.find_favorite_merchant_of(customer_id)
+  end
+
   private
 
   def inspect
