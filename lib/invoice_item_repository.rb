@@ -62,15 +62,21 @@ class InvoiceItemRepository
   end
 
   def total_quantity
-    successful_items = invoice_items.reject do |item|
-      item.failed?
-    end
     items = successful_items.group_by { |ii| ii.item_id}
-    quantities = items.keys.map do |key|
-      items[key].map { |item| item.quantity }.reduce(0, :+)
+    quantities = items.keys.map do |item_id|
+      items[item_id].map { |item| item.quantity }.reduce(0, :+)
     end
-    items.keys.zip(quantities).sort_by {|key, quantity| quantity}.reverse
+    items.keys.zip(quantities).sort_by {|item_id, quantity| quantity}.reverse
   end
+
+  def total_revenue
+    items = successful_items.group_by { |ii| ii.item_id}
+    revenue_total = items.keys.map do |item_id|
+      items[item_id].map { |item| item.unit_price }.reduce(0, :+)
+    end
+    items.keys.zip(revenue_total).sort_by {|item_id, unit_price| unit_price}.reverse
+  end
+
 
   private
 
@@ -81,5 +87,11 @@ class InvoiceItemRepository
   def load_file(filepath)
     contents = FileLoader.load_file(filepath)
     contents.map { |row| InvoiceItem.new(row, self) }
+  end
+
+  def successful_items
+    invoice_items.reject do |item|
+      item.failed?
+    end
   end
 end
