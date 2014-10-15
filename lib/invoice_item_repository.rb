@@ -69,6 +69,14 @@ class InvoiceItemRepository
     items.keys.zip(quantities).sort_by {|item_id, quantity| quantity}.reverse
   end
 
+  def total_quantity_by_invoice
+    invoices = successful_items.group_by { |ii| ii.invoice_id}
+    quantities = invoices.keys.map do |invoice_id|
+      invoices[invoice_id].map { |item| item.quantity }.reduce(0, :+)
+    end
+    invoices.keys.zip(quantities).sort_by {|invoice_id, quantity| quantity}.reverse
+  end
+
   def total_revenue
     items = successful_items.group_by { |ii| ii.item_id}
     revenue_total = items.keys.map do |item_id|
@@ -76,7 +84,6 @@ class InvoiceItemRepository
     end
     items.keys.zip(revenue_total).sort_by {|item_id, unit_price| unit_price}.reverse
   end
-
 
   private
 

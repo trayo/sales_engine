@@ -41,6 +41,10 @@ class MerchantRepository
     merchants.reduce(0) { |sum, merchant| sum + merchant.revenue(date) }
   end
 
+  def most_items(top_x)
+    engine.most_items_for_merchant(top_x)
+  end
+
   private
 
   def inspect
