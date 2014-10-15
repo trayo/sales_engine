@@ -101,6 +101,12 @@ class SalesEngine
     customer_repository.find_by_id(customer_id)
   end
 
+  # def find_pending_customer_invoices_for_merchant(merchant_id)
+  #   invoices = invoice_repository.find_all_by_merchant_id(merchant_id)
+  #   failed_invoices = invoices.select { |invoice| invoice.failed? }
+  #   failed_invoices.map(&:customer).uniq
+  # end
+
   private
 
   def find_successful_invoices(customer_id)

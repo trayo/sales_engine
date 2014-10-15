@@ -45,6 +45,12 @@ class MerchantRepository
     engine.find_favorite_customer_of(merchant_id)
   end
 
+  def find_pending_customer_invoices_for_merchant(merchant_id)
+    invoices = engine.invoice_repository.find_all_by_merchant_id(merchant_id)
+    failed_invoices = invoices.select { |invoice| invoice.failed? }
+    failed_invoices.map(&:customer).uniq
+  end
+
   private
 
   def inspect
