@@ -21,7 +21,7 @@ class Merchant
     repository.invoices(id)
   end
 
-  def revenue(date=nil)
+  def revenue(date = nil)
     if date
       sum_all(invoices.select { |invoice| invoice.created_at == date })
     else
@@ -41,5 +41,9 @@ class Merchant
 
   def favorite_customer
     repository.find_favorite_customer(id)
+  end
+
+  def customers_with_pending_invoices
+    repository.find_pending_customer_invoices_for_merchant(id)
   end
 end
