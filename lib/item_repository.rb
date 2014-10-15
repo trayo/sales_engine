@@ -61,8 +61,12 @@ class ItemRepository
     engine.item_merchant(merchant_id)
   end
 
-  def most_items(x)
-    engine.most_items_for_items(x)
+  def most_items(top_x)
+    engine.most_items_for_items(top_x)
+  end
+
+  def most_revenue(top_x)
+    engine.most_revenue_for_items(top_x)
   end
 
   private
