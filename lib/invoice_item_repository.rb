@@ -62,21 +62,20 @@ class InvoiceItemRepository
   end
 
   def total_quantity
-    items = successful_items.group_by { |ii| ii.item_id}
+    items = successful_items.group_by(&:item_id)
     quantities = items.keys.map do |item_id|
-      items[item_id].map { |item| item.quantity }.reduce(0, :+)
+      items[item_id].map(&:quantity).reduce(0, :+)
     end
-    items.keys.zip(quantities).sort_by {|item_id, quantity| quantity}.reverse
+    items.keys.zip(quantities).sort_by { |_item_id, quantity| quantity }.reverse
   end
 
   def total_revenue
-    items = successful_items.group_by { |ii| ii.item_id}
+    items = successful_items.group_by(&:item_id)
     revenue_total = items.keys.map do |item_id|
-      items[item_id].map { |item| item.unit_price }.reduce(0, :+)
+      items[item_id].map(&:unit_price).reduce(0, :+)
     end
-    items.keys.zip(revenue_total).sort_by {|item_id, unit_price| unit_price}.reverse
+    items.keys.zip(revenue_total).sort_by { |_item_id, unit_price| unit_price }.reverse
   end
-
 
   private
 
@@ -90,8 +89,6 @@ class InvoiceItemRepository
   end
 
   def successful_items
-    invoice_items.reject do |item|
-      item.failed?
-    end
+    invoice_items.reject(&:failed?)
   end
 end
