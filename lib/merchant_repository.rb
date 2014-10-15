@@ -44,6 +44,10 @@ class MerchantRepository
   def most_items(top_x)
     engine.most_items_for_merchant(top_x)
   end
+  
+  def find_favorite_customer(merchant_id)
+    engine.find_favorite_customer_of(merchant_id)
+  end
 
   private
 
