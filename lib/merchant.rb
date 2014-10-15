@@ -21,7 +21,7 @@ class Merchant
     repository.invoices(id)
   end
 
-  def revenue(date=nil)
+  def revenue(date = nil)
     if date
       sum_all(invoices.select { |invoice| invoice.created_at == date })
     else

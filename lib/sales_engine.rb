@@ -65,7 +65,7 @@ class SalesEngine
 
   def items_from_invoice_items(id_from_invoice)
     invoice_item_set = find_invoice_items_for_invoice(id_from_invoice)
-    item_set = invoice_item_set.map {|ii| ii.item_id}
+    item_set = invoice_item_set.map(&:item_id)
     item_set.map { |item_num| item_repository.find_by_id(item_num) }
   end
 
@@ -83,21 +83,21 @@ class SalesEngine
 
   def most_items_for_items(top_x)
     total = invoice_item_repository.total_quantity
-    total[0...top_x].map { |item_id, quantity| item_repository.find_by_id(item_id) }
+    total[0...top_x].map { |item_id, _quantity| item_repository.find_by_id(item_id) }
   end
 
   def most_revenue_for_items(top_x)
     total = invoice_item_repository.total_revenue
-    total[0...top_x].map { |item_id, revenue_total| item_repository.find_by_id(item_id) }
+    total[0...top_x].map { |item_id, _revenue_total| item_repository.find_by_id(item_id) }
   end
 
   def find_favorite_merchant_of(customer_id)
-    merchant_id = grouped_merchants_for(customer_id).max_by { |merchant_id, invoices| invoices.count }.first
+    merchant_id = grouped_merchants_for(customer_id).max_by { |_merchant_id, invoices| invoices.count }.first
     merchant_repository.find_by_id(merchant_id)
   end
 
   def find_favorite_customer_of(merchant_id)
-    customer_id = grouped_customers_for(merchant_id).max_by { |customer_id, invoices | invoices.count }.first
+    customer_id = grouped_customers_for(merchant_id).max_by { |_customer_id, invoices | invoices.count }.first
     customer_repository.find_by_id(customer_id)
   end
 
@@ -115,16 +115,15 @@ class SalesEngine
   end
 
   def grouped_merchants_for(customer_id)
-    find_successful_invoices(customer_id).group_by { |invoice| invoice.merchant_id }
+    find_successful_invoices(customer_id).group_by(&:merchant_id)
   end
 
   def grouped_customers_for(merchant_id)
-    find_successful_merchant_invoices(merchant_id).group_by { |invoice| invoice.customer_id }
+    find_successful_merchant_invoices(merchant_id).group_by(&:customer_id)
   end
 
   def find_successful_merchant_invoices(merchant_id)
     invoice_repository.find_all_by_merchant_id(merchant_id)
                       .reject(&:failed?)
   end
-
 end
