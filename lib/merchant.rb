@@ -38,4 +38,8 @@ class Merchant
       end
     end.reduce(0, :+)
   end
+
+  def favorite_customer
+    repository.find_favorite_customer(id)
+  end
 end

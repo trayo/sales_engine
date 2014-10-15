@@ -96,6 +96,11 @@ class SalesEngine
     merchant_repository.find_by_id(merchant_id)
   end
 
+  def find_favorite_customer_of(merchant_id)
+    customer_id = grouped_customers_for(merchant_id).max_by { |customer_id, invoices | invoices.count }.first
+    customer_repository.find_by_id(customer_id)
+  end
+
   private
 
   def find_successful_invoices(customer_id)
@@ -106,4 +111,14 @@ class SalesEngine
   def grouped_merchants_for(customer_id)
     find_successful_invoices(customer_id).group_by { |invoice| invoice.merchant_id }
   end
+
+  def grouped_customers_for(merchant_id)
+    find_successful_merchant_invoices(merchant_id).group_by { |invoice| invoice.customer_id }
+  end
+
+  def find_successful_merchant_invoices(merchant_id)
+    invoice_repository.find_all_by_merchant_id(merchant_id)
+                      .reject(&:failed?)
+  end
+
 end

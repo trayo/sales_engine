@@ -41,6 +41,10 @@ class MerchantRepository
     merchants.reduce(0) { |sum, merchant| sum + merchant.revenue(date) }
   end
 
+  def find_favorite_customer(merchant_id)
+    engine.find_favorite_customer_of(merchant_id)
+  end
+
   private
 
   def inspect
