@@ -92,8 +92,7 @@ class SalesEngine
   end
 
   def most_items_for_merchant(top_x)
-    total = invoice_item_repository.total_quantity_by_invoice
-    total[0...top_x].map { |item_id, quantity| item_repository.find_by_id(item_id) }
+    merchants_invoices = invoice_repository.all.group_by { |invoice| invoice.merchant_id }
   end
 
   def find_favorite_merchant_of(customer_id)
