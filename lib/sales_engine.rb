@@ -143,7 +143,7 @@ class SalesEngine
                       .reject(&:failed?)
   end
 
-  def grouped_merch_for(customer_id)
+  def group_merch_for(customer_id)
     find_successful_invoices(customer_id).group_by(&:merchant_id)
   end
 
