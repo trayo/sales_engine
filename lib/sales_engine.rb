@@ -19,12 +19,17 @@ class SalesEngine
   end
 
   def startup
-    @customer_repository     = CustomerRepository.new(self, path + '/customers.csv')
-    @transaction_repository  = TransactionRepository.new(self, path + '/transactions.csv')
-    @invoice_item_repository = InvoiceItemRepository.new(self, path + '/invoice_items.csv')
+    @customer_repository     = CustomerRepository.new(self, path +
+      '/customers.csv')
+    @transaction_repository  = TransactionRepository.new(self, path +
+      '/transactions.csv')
+    @invoice_item_repository = InvoiceItemRepository.new(self, path +
+      '/invoice_items.csv')
     @item_repository         = ItemRepository.new(self, path + '/items.csv')
-    @merchant_repository     = MerchantRepository.new(self, path + '/merchants.csv')
-    @invoice_repository      = InvoiceRepository.new(self, path + '/invoices.csv')
+    @merchant_repository     = MerchantRepository.new(self, path +
+      '/merchants.csv')
+    @invoice_repository      = InvoiceRepository.new(self, path +
+      '/invoices.csv')
   end
 
   def merchant_items(id)
@@ -83,34 +88,52 @@ class SalesEngine
 
   def most_items_for_items(top_x)
     total_items = invoice_item_repository.total_quantity
-    total_items[0...top_x].map { |item_id, _quantity| item_repository.find_by_id(item_id) }
+    total_items[0...top_x].map do |item_id, _quantity|
+      item_repository.find_by_id(item_id)
+    end
   end
 
   def most_revenue_for_items(top_x)
     total_revenue = invoice_item_repository.total_revenue
-    total_revenue[0...top_x].map { |item_id, _revenue_total| item_repository.find_by_id(item_id) }
+    total_revenue[0...top_x].map do |item_id, _revenue_total|
+      item_repository.find_by_id(item_id)
+    end
   end
 
   def most_items_for_merchant(top_x)
-    merchants_invoices = invoice_repository.all.group_by { |invoice| invoice.merchant_id }
-    total_items = invoice_item_repository.total_quantity_by_invoice(merchants_invoices)
-    total_items[0...top_x].map { |item_id, _quantity| merchant_repository.find_by_id(item_id)}
+    merchants_invoices = invoice_repository.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+    total_items = invoice_item_repository
+      .total_quantity_by_invoice(merchants_invoices)
+    total_items[0...top_x].map do |item_id, _quantity|
+      merchant_repository.find_by_id(item_id)
+    end
   end
 
   def most_revenue_for_merchant(top_x)
-    merchants_invoices = invoice_repository.all.group_by { |invoice| invoice.merchant_id }
-    total_items = invoice_item_repository.total_revenue_by_invoice(merchants_invoices)
-    total_items[0...top_x].map { |item_id, _revenue| merchant_repository.find_by_id(item_id)}
+    merchants_invoices = invoice_repository.all.group_by do |invoice|
+      invoice.merchant_id
+    end
+    total_items = invoice_item_repository
+      .total_revenue_by_invoice(merchants_invoices)
+    total_items[0...top_x].map do |item_id, _revenue|
+      merchant_repository.find_by_id(item_id)
+    end
   end
 
   def find_favorite_merchant_of(customer_id)
-    merchant_id = grouped_merchants_for(customer_id).max_by { |_merchant_id, invoices| invoices.count }.first
-    merchant_repository.find_by_id(merchant_id)
+    merch_id = group_merch_for(customer_id).max_by do |_merchant_id, invoices|
+       invoices.count
+     end.first
+    merchant_repository.find_by_id(merch_id)
   end
 
   def find_favorite_customer_of(merchant_id)
-    customer_id = grouped_customers_for(merchant_id).max_by { |_customer_id, invoices | invoices.count }.first
-    customer_repository.find_by_id(customer_id)
+    cust_id = group_custs_for(merchant_id).max_by do|_customer_id, invoices |
+       invoices.count
+     end.first
+    customer_repository.find_by_id(cust_id)
   end
 
   private
@@ -120,11 +143,11 @@ class SalesEngine
                       .reject(&:failed?)
   end
 
-  def grouped_merchants_for(customer_id)
+  def group_merch_for(customer_id)
     find_successful_invoices(customer_id).group_by(&:merchant_id)
   end
 
-  def grouped_customers_for(merchant_id)
+  def group_custs_for(merchant_id)
     find_successful_merchant_invoices(merchant_id).group_by(&:customer_id)
   end
 

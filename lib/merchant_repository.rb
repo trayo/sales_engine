@@ -6,7 +6,8 @@ class MerchantRepository
 
   def initialize(engine, merchants = '')
     @engine = engine
-    merchants.class == Array ? @merchants = merchants : @merchants = load_file(merchants)
+    merchants.class == Array ? @merchants = merchants :
+      @merchants = load_file(merchants)
   end
 
   def all

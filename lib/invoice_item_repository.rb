@@ -6,7 +6,8 @@ class InvoiceItemRepository
 
   def initialize(engine, invoice_items = '')
     @engine        = engine
-    invoice_items.class == Array ? @invoice_items = invoice_items : @invoice_items = load_file(invoice_items)
+    invoice_items.class == Array ? @invoice_items = invoice_items :
+      @invoice_items = load_file(invoice_items)
   end
 
   def all
@@ -34,7 +35,9 @@ class InvoiceItemRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+    invoice_items.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
   end
 
   def find_by_quantity(quantity)
@@ -50,7 +53,9 @@ class InvoiceItemRepository
   end
 
   def find_all_by_unit_price(unit_price)
-    invoice_items.find_all { |invoice_item| invoice_item.unit_price == unit_price }
+    invoice_items.find_all do |invoice_item|
+      invoice_item.unit_price == unit_price
+    end
   end
 
   def item(item_id)
@@ -63,10 +68,11 @@ class InvoiceItemRepository
 
   def total_quantity
     item_ids_to_iis = successful_invoice_items.group_by { |ii| ii.item_id }
-    item_id_to_quantity = item_ids_to_iis.each_with_object({}) do |(item_id, iis), quantities|
-      quantities[item_id] = iis.map(&:quantity).reduce(0, :+)
+    item_id_to_quant = item_ids_to_iis.each_with_object({}) do
+      |(item_id, iis), quant|
+      quant[item_id] = iis.map(&:quantity).reduce(0, :+)
     end
-    item_id_to_quantity.sort_by {|item_id, quantity| -quantity}
+    item_id_to_quant.sort_by {|item_id, quantity| -quantity}
   end
 
   def total_quantity_by_invoice(merchants_invoices)
@@ -80,7 +86,8 @@ class InvoiceItemRepository
 
   def total_revenue
     item_ids_to_iis = successful_invoice_items.group_by { |ii| ii.item_id}
-    item_id_to_revenue = item_ids_to_iis.each_with_object({}) do |(item_id, iis), revenue_total|
+    item_id_to_revenue = item_ids_to_iis.each_with_object({}) do
+      |(item_id, iis), revenue_total|
       revenue_total[item_id] = iis.map(&:unit_price).reduce(0, :+)
     end
     item_id_to_revenue.sort_by {|item_id, unit_price| -unit_price}
