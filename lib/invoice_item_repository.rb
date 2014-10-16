@@ -81,8 +81,7 @@ class InvoiceItemRepository
         invoice.invoice_items.map{ |ii| ii.quantity }.reduce(0, :+)
       end.reduce(0, :+)
     end
-    zipped = merchants_invoices.keys.zip(m_id_to_quantities)
-    zipped.sort_by {|item_id, quantity| -quantity}
+    zip_results(merchants_invoices, m_id_to_quantities)
   end
 
   def total_revenue
@@ -100,8 +99,7 @@ class InvoiceItemRepository
         invoice.invoice_items.map{ |ii| ii.unit_price }.reduce(0, :+)
       end.reduce(0, :+)
     end
-    zipped = merchants_invoices.keys.zip(m_id_to_total_revenue)
-    zipped.sort_by {|item_id, total_revenue| -total_revenue}
+    zip_results(merchants_invoices, m_id_to_total_revenue)
   end
 
   private
@@ -117,5 +115,10 @@ class InvoiceItemRepository
 
   def successful_invoice_items
     invoice_items.reject(&:failed?)
+  end
+
+  def zip_results(m_invoices, m_id)
+    zipped = m_invoices.keys.zip(m_id)
+    zipped.sort_by {|item_id, attribute| -attribute}
   end
 end
