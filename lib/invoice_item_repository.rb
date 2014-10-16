@@ -71,8 +71,7 @@ class InvoiceItemRepository
 
   def total_quantity_by_invoice(merchants_invoices)
     m_id_to_quantities = merchants_invoices.map do |m_id, invoices|
-      passing_invoices = invoices.reject(&:failed?)
-      passing_invoices.map do |invoice|
+      invoices.reject(&:failed?).map do |invoice|
         invoice.invoice_items.map{ |ii| ii.quantity }.reduce(0, :+)
       end.reduce(0, :+)
     end
@@ -86,6 +85,16 @@ class InvoiceItemRepository
       revenue_total[item_id] = iis.map(&:unit_price).reduce(0, :+)
     end
     item_id_to_revenue.sort_by {|item_id, unit_price| -unit_price}
+  end
+
+  def total_revenue_by_invoice(merchants_invoices)
+    m_id_to_total_revenue = merchants_invoices.map do |m_id, invoices|
+      invoices.reject(&:failed?).map do |invoice|
+        invoice.invoice_items.map{ |ii| ii.unit_price }.reduce(0, :+)
+      end.reduce(0, :+)
+    end
+    zipped = merchants_invoices.keys.zip(m_id_to_total_revenue)
+    zipped.sort_by {|item_id, total_revenue| -total_revenue}
   end
 
   private

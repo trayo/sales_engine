@@ -97,6 +97,12 @@ class SalesEngine
     total_items[0...top_x].map { |item_id, _quantity| merchant_repository.find_by_id(item_id)}
   end
 
+  def most_revenue_for_merchant(top_x)
+    merchants_invoices = invoice_repository.all.group_by { |invoice| invoice.merchant_id }
+    total_items = invoice_item_repository.total_revenue_by_invoice(merchants_invoices)
+    total_items[0...top_x].map { |item_id, _revenue| merchant_repository.find_by_id(item_id)}
+  end
+
   def find_favorite_merchant_of(customer_id)
     merchant_id = grouped_merchants_for(customer_id).max_by { |_merchant_id, invoices| invoices.count }.first
     merchant_repository.find_by_id(merchant_id)
