@@ -103,4 +103,15 @@ class CustomerRepositoryTest < Minitest::Test
     sales_engine.verify
   end
 
+  def test_invoices
+    sales_engine.expect(:customer_invoices, [], [1])
+    customer_repo.invoices(1)
+    sales_engine.verify
+  end
+
+  def test_find_favorite_merchant
+    sales_engine.expect(:find_favorite_merchant_of, [], [1])
+    customer_repo.find_favorite_merchant(1)
+    sales_engine.verify
+  end
 end
