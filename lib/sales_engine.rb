@@ -130,7 +130,7 @@ class SalesEngine
   end
 
   def find_favorite_customer_of(merchant_id)
-    cust_id = group_custs_for(merchant_id).max_by do|_customer_id, invoices |
+    cust_id = group_custs_for(merchant_id).max_by do |_customer_id, invoices |
        invoices.count
      end.first
     customer_repository.find_by_id(cust_id)
