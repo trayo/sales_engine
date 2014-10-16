@@ -6,7 +6,8 @@ class TransactionRepository
 
   def initialize(engine, transactions = '')
     @engine = engine
-    transactions.class == Array ? @transactions = transactions : @transactions = load_file(transactions)
+    transactions.class == Array ? @transactions = transactions :
+      @transactions = load_file(transactions)
   end
 
   def all
@@ -30,19 +31,27 @@ class TransactionRepository
   end
 
   def find_by_credit_card_number(credit_card_number)
-    transactions.find { |transaction| transaction.credit_card_number == credit_card_number }
+    transactions.find do |transaction|
+      transaction.credit_card_number == credit_card_number
+    end
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    transactions.find_all { |transaction| transaction.credit_card_number == credit_card_number }
+    transactions.find_all do |transaction|
+      transaction.credit_card_number == credit_card_number
+    end
   end
 
   def find_by_credit_card_expiration_date(credit_card_expiration_date)
-    transactions.find { |transaction| transaction.credit_card_expiration_date == credit_card_expiration_date }
+    transactions.find do |transaction|
+      transaction.credit_card_expiration_date == credit_card_expiration_date
+    end
   end
 
   def find_all_by_credit_card_expiration_date(credit_card_expiration_date)
-    transactions.find_all { |transaction| transaction.credit_card_expiration_date == credit_card_expiration_date }
+    transactions.find_all do |transaction|
+      transaction.credit_card_expiration_date == credit_card_expiration_date
+    end
   end
 
   def find_by_result(result)
