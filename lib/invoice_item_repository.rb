@@ -62,19 +62,30 @@ class InvoiceItemRepository
   end
 
   def total_quantity
-    items = successful_items.group_by(&:item_id)
-    quantities = items.keys.map do |item_id|
-      items[item_id].map(&:quantity).reduce(0, :+)
+    item_ids_to_iis = successful_invoice_items.group_by { |ii| ii.item_id }
+    item_id_to_quantity = item_ids_to_iis.each_with_object({}) do |(item_id, iis), quantities|
+      quantities[item_id] = iis.map(&:quantity).reduce(0, :+)
     end
-    items.keys.zip(quantities).sort_by { |_item_id, quantity| quantity }.reverse
+    item_id_to_quantity.sort_by {|item_id, quantity| -quantity}
+  end
+
+  def total_quantity_by_invoice(merchants_invoices)
+    m_id_to_quantities = merchants_invoices.map do |m_id, invoices|
+      passing_invoices = invoices.reject(&:failed?)
+      passing_invoices.map do |invoice|
+        invoice.invoice_items.map{ |ii| ii.quantity }.reduce(0, :+)
+      end.reduce(0, :+)
+    end
+    zipped = merchants_invoices.keys.zip(m_id_to_quantities)
+    zipped.sort_by {|item_id, quantity| -quantity}
   end
 
   def total_revenue
-    items = successful_items.group_by(&:item_id)
-    revenue_total = items.keys.map do |item_id|
-      items[item_id].map(&:unit_price).reduce(0, :+)
+    item_ids_to_iis = successful_invoice_items.group_by { |ii| ii.item_id}
+    item_id_to_revenue = item_ids_to_iis.each_with_object({}) do |(item_id, iis), revenue_total|
+      revenue_total[item_id] = iis.map(&:unit_price).reduce(0, :+)
     end
-    items.keys.zip(revenue_total).sort_by { |_item_id, unit_price| unit_price }.reverse
+    item_id_to_revenue.sort_by {|item_id, unit_price| -unit_price}
   end
 
   private
@@ -88,7 +99,7 @@ class InvoiceItemRepository
     contents.map { |row| InvoiceItem.new(row, self) }
   end
 
-  def successful_items
+  def successful_invoice_items
     invoice_items.reject(&:failed?)
   end
 end

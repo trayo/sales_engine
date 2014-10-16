@@ -82,13 +82,19 @@ class SalesEngine
   end
 
   def most_items_for_items(top_x)
-    total = invoice_item_repository.total_quantity
-    total[0...top_x].map { |item_id, _quantity| item_repository.find_by_id(item_id) }
+    total_items = invoice_item_repository.total_quantity
+    total_items[0...top_x].map { |item_id, _quantity| item_repository.find_by_id(item_id) }
   end
 
   def most_revenue_for_items(top_x)
-    total = invoice_item_repository.total_revenue
-    total[0...top_x].map { |item_id, _revenue_total| item_repository.find_by_id(item_id) }
+    total_revenue = invoice_item_repository.total_revenue
+    total_revenue[0...top_x].map { |item_id, _revenue_total| item_repository.find_by_id(item_id) }
+  end
+
+  def most_items_for_merchant(top_x)
+    merchants_invoices = invoice_repository.all.group_by { |invoice| invoice.merchant_id }
+    total_items = invoice_item_repository.total_quantity_by_invoice(merchants_invoices)
+    total_items[0...top_x].map { |item_id, _quantity| merchant_repository.find_by_id(item_id)}
   end
 
   def find_favorite_merchant_of(customer_id)
@@ -100,12 +106,6 @@ class SalesEngine
     customer_id = grouped_customers_for(merchant_id).max_by { |_customer_id, invoices | invoices.count }.first
     customer_repository.find_by_id(customer_id)
   end
-
-  # def find_pending_customer_invoices_for_merchant(merchant_id)
-  #   invoices = invoice_repository.find_all_by_merchant_id(merchant_id)
-  #   failed_invoices = invoices.select { |invoice| invoice.failed? }
-  #   failed_invoices.map(&:customer).uniq
-  # end
 
   private
 
