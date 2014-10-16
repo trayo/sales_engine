@@ -71,8 +71,7 @@ class InvoiceItemRepository
 
   def total_quantity_by_invoice(merchants_invoices)
     m_id_to_quantities = merchants_invoices.map do |m_id, invoices|
-      passing_invoices = invoices.reject(&:failed?)
-      passing_invoices.map do |invoice|
+      invoices.reject(&:failed?).map do |invoice|
         invoice.invoice_items.map{ |ii| ii.quantity }.reduce(0, :+)
       end.reduce(0, :+)
     end
