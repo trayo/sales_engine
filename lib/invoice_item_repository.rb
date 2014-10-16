@@ -100,8 +100,6 @@ class InvoiceItemRepository
   end
 
   def successful_invoice_items
-    invoice_items.reject do |item|
-      item.failed?
-    end
+    invoice_items.reject(&:failed?)
   end
 end

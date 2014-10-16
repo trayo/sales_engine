@@ -38,10 +38,10 @@ class Invoice
   end
 
   def failed?
-    transactions.all? { |transaction| transaction.failed? }
+    transactions.all?(&:failed?)
   end
 
   def valid_transactions
-    transactions.reject { |transaction| transaction.failed? }
+    transactions.reject(&:failed?)
   end
 end

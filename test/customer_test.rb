@@ -32,4 +32,16 @@ class CustomerTest < MiniTest::Test
     customer.transactions
     repository.verify
   end
+
+  def test_invoices
+    repository.expect(:invoices, [], [1])
+    customer.invoices
+    repository.verify
+  end
+
+  def test_favorite_merchant
+    repository.expect(:find_favorite_merchant, [], [1])
+    customer.favorite_merchant
+    repository.verify
+  end
 end

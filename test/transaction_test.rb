@@ -29,4 +29,15 @@ class TransactionTest < MiniTest::Test
     assert_class = Date, @transaction.created_at
     assert_equal = Date, @transaction.updated_at
   end
+
+  def test_invoice
+    repository.expect(:invoice, [], [1])
+    transaction.invoice
+    repository.verify
+  end
+
+  def test_failed?
+    assert_equal false, transaction.failed?
+  end
+
 end
