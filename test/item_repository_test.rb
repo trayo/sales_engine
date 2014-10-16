@@ -129,4 +129,27 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 14, item.id
   end
 
+  def test_invoice_items
+    sales_engine.expect(:item_invoice_items, [], [1])
+    item_repo.invoice_items(1)
+    sales_engine.verify
+  end
+
+  def test_merchant
+    sales_engine.expect(:item_merchant, [], [1])
+    item_repo.merchant(1)
+    sales_engine.verify
+  end
+
+  def test_most_items
+    sales_engine.expect(:most_items_for_items, [], [1])
+    item_repo.most_items(1)
+    sales_engine.verify
+  end
+
+  def test_most_revenue
+    sales_engine.expect(:most_revenue_for_items, [], [1])
+    item_repo.most_revenue(1)
+    sales_engine.verify
+  end
 end

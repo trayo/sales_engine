@@ -126,4 +126,22 @@ class InvoiceRepositoryTest < Minitest::Test
     sales_engine.verify
   end
 
+  def test_customer
+    sales_engine.expect(:invoice_customer, [], [1])
+    invoice_repo.customer(1)
+    sales_engine.verify
+  end
+
+  def test_transactions
+    sales_engine.expect(:invoice_transactions, [], [1])
+    invoice_repo.transactions(1)
+    sales_engine.verify
+  end
+
+  def test_invoice_items
+    sales_engine.expect(:find_invoice_items_for_invoice, [], [1])
+    invoice_repo.invoice_items(1)
+    sales_engine.verify
+  end
+
 end

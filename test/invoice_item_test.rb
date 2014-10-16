@@ -28,6 +28,9 @@ class InvoiceItemTest < MiniTest::Test
     assert_equal BigDecimal.new('136.35'), @invoice_item.unit_price
     assert_class = Date, @invoice_item.created_at
     assert_class = Date, @invoice_item.updated_at
+  end
 
+  def test_total
+    assert_equal BigDecimal.new('136.35'), invoice_item.total
   end
 end

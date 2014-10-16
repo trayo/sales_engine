@@ -77,4 +77,22 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 'Williamson Group', merchant.name
     assert_equal 5, merchant.id
   end
+
+  def test_items
+    sales_engine.expect(:merchant_items, [], [1])
+    merchant_repo.items(1)
+    sales_engine.verify
+  end
+
+  def test_invoices
+    sales_engine.expect(:merchant_invoices, [], [1])
+    merchant_repo.invoices(1)
+    sales_engine.verify
+  end
+
+  def test_find_favorite_customer
+    sales_engine.expect(:find_favorite_customer_of, [], [1])
+    merchant_repo.find_favorite_customer(1)
+    sales_engine.verify
+  end
 end
