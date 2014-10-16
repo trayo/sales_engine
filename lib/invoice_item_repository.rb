@@ -87,6 +87,16 @@ class InvoiceItemRepository
     item_id_to_revenue.sort_by {|item_id, unit_price| -unit_price}
   end
 
+  def total_revenue_by_invoice(merchants_invoices)
+    m_id_to_total_revenue = merchants_invoices.map do |m_id, invoices|
+      invoices.reject(&:failed?).map do |invoice|
+        invoice.invoice_items.map{ |ii| ii.unit_price }.reduce(0, :+)
+      end.reduce(0, :+)
+    end
+    zipped = merchants_invoices.keys.zip(m_id_to_total_revenue)
+    zipped.sort_by {|item_id, total_revenue| -total_revenue}
+  end
+
   private
 
   def inspect
