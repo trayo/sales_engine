@@ -6,7 +6,8 @@ class InvoiceRepository
 
   def initialize(engine, invoices = '')
     @engine = engine
-    invoices.class == Array ? @invoices = invoices : @invoices = load_file(invoices)
+    invoices.class == Array ? @invoices = invoices :
+      @invoices = load_file(invoices)
   end
 
   def all
