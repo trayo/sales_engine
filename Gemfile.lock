@@ -28,7 +28,7 @@ GEM
     lumberjack (1.0.9)
     method_source (0.8.2)
     minitest (5.4.2)
-    minitest-reporters (1.0.5)
+    minitest-reporters (1.0.7)
       ansi
       builder
       minitest (>= 5.0)
